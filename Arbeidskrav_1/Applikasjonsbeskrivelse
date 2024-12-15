@@ -1,0 +1,31 @@
+Det norske discgolf-forbundet ønsker å utvikle en webapplikasjon som kan samle discgolfentusiaster i Norge. Med økende popularitet og tilstedeværelse av baner i de fleste kommuner, er det behov for en plattform som kan tilby informasjon om hvordan man spiller, baner, turneringer, og muligheten for spillere å holde oversikt over egne resultater. 
+
+(Lurte på om jeg egentlig skull skrive dette i egne avsnitt, men følte det ble mer oversiktlig sånn)
+Applikasjonen skal blant annet kunne:
+	1. Informasjon og regler 
+	- Vise informasjon om hvordan man spiller diskgolf, i tillegg til å kunne gi veiledning og tips.
+	- Sidene skal kunne regideres i nettleseren.
+
+	2. Klubbfunksjonaliteter
+	- Klubber kan opprette undersider som inkluderer kontaktinformasjon om personer med verv i klubben, nyheter, baner og     turneringer. 
+	- En klubb skal kunne ha ansvar over en eller flere baner, og kunne endre og legge til data om dem på kartet.
+	- Kunne tegne inn hvert hull med utlasgspunkt og kurv, i tillegg til å legge inn informasjon som distanse, par og out-of-bounds områder.
+	
+	3. Banekart funksjonalitet
+	- Brukere skal kunne søke etter baner fra kartet og kunne filtrere med hensyn til på by, navn, vanskelighetsgrad og popularitet.
+	- Skal vise informasjon om banen, dvs plassering, baneoppsett, antall hull, vansklighetsgrad, burkeranmeldelser og været rundt banen.
+
+	4. Rekruttering
+	- Kunne melde seg inn i en klubb via nettsiden og betale kontingent. 
+	- Skal kunne legge ut møteinnkallinger og referater/pdf-er slik at det bare er synlig for medlemmer.
+
+	5. Informasjon om spill
+	- Spillet foregår på bare en bane.
+	- Man skal kunne spille alene eller som en gruppe.
+
+	6. Bruker
+	- En bruker skal kunne se generell statistikk om seg selv. Som for eksempel gjennomsnittlig poengsum, beste poengsum og antall spilte kamper. 
+	- Som en bruker kan man også vurdere baner. Gjennom en vurderings score og fritekst-anmeldelse.
+	- Aktivere varsling om kommende turneringer og nyheter om enkelte baner.
+	- Applikasjonen kan også gjøre at brukere kan koble seg til andre brukere.
+	- Kan kanskje organisere turneringer.
