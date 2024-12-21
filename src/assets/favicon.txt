@@ -1,0 +1,10 @@
+@author Richard
+Favicon lagd av meg ved hjelp av nettside
+@see https://favicon.io/favicon-generator/
+@since 1.0
+
+This favicon was generated using the following font:
+- Font Title: Chocolate Classical Sans
+- Font Author: undefined
+- Font Source: https://fonts.gstatic.com/s/chocolateclassicalsans/v5/nuFqD-PLTZX4XIgT-P2ToCDudWHHflqUpTpfjWdDPI2J9mHITw.ttf
+- Font License: undefined
