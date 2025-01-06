@@ -12,9 +12,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
-    "react-bootstrap": "^2.10.7",
-    "avhengighet1": "^1.0.0",
-    "avhengighet2": "^2.0.0"
+    "react-bootstrap": "^2.10.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
