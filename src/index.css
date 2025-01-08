@@ -30,6 +30,10 @@ body {
   min-height: 100vh;
 }
 
+#b{
+  background-color: #5a805d;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

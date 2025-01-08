@@ -1,5 +1,6 @@
 import React from "react";
 import AppNavbar from "../components/Navbar";
+import Page from "./page";
 
 const navLinks = [
     { name: "Hjem", href: "/" },
@@ -15,7 +16,7 @@ export default function Login(){
         return (
             <>
                 <AppNavbar links={navLinks}></AppNavbar>
-                <div>Login side eller no</div>
+                <Page />
             </>
         )
     }

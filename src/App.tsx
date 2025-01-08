@@ -8,15 +8,16 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppNavbar from './components/Navbar';
+//import { Router } from "react-router-dom";
+
+//Denne navningen er fra chatGPT, men forklarer oppsettet under bedre.
+import { Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import Login from "./login/login";
+import Home from "./home/home";
+import Spill from "./spill/page";
+
 
 const App: React.FC = () => {
-  // State for å holde styr på telleren
-  const [count, setCount] = useState<number>(0);
-
-  // Funksjon for å håndtere knappetrykk
-  const incrementCounter = () => {
-    setCount(count + 1);
-  };
 
   // Definerer lenker som skal være i navbaren på de forskjellige sidene
   const navLinks = [
@@ -31,16 +32,16 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div>
+    
+    <>
       <AppNavbar links={navLinks} />
-      <div className="container" style={{ paddingTop: '70px' }}>
-        <h1 className="text-center">Velkommen til React med Bootstrap!</h1>
-        <h2 className="text-center">Teller: {count}</h2>
-        <button className="btn btn-primary" onClick={incrementCounter}>
-          Øk teller
-        </button>
-      </div>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/spill" element={<Spill />} />
+        </Routes>
+    </>
+    
   );
 };
 
