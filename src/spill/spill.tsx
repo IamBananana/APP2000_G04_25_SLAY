@@ -1,15 +1,18 @@
 import AppNavbar from "../components/Navbar";
-import Page from "../login/page";
+import Page from "./page";
 
 const navLinks = [
     { name: "Hjem", href: "/" },
     { name: "Om oss", href: "/omOss" },
     { name: "Kontakt", href: "/kontakt" },
-    { name: "Spill", href: "/spill" }, //Kan man spille uten å logge inn?
+    { name: "Mitt lag", href: "/lag" },
+    { name: "Min side", href: "/minSide" },
+    { name: "Login", href: "/login" },
     { name: "Registrer", href: "/registrer" },
-]
+];
 
 export default function Spill(){
+
     return(
         <>
             <AppNavbar links={navLinks} />

@@ -14,7 +14,7 @@ import AppNavbar from './components/Navbar';
 import { Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from "./login/login";
 import Home from "./home/home";
-import Spill from "./spill/page";
+import Spill from "./spill/spill";
 
 
 const App: React.FC = () => {

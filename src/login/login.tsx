@@ -1,4 +1,3 @@
-import React from "react";
 import AppNavbar from "../components/Navbar";
 import Page from "./page";
 
@@ -8,6 +7,7 @@ const navLinks = [
     { name: "Kontakt", href: "/kontakt" },
     { name: "Spill", href: "/spill" }, //Kan man spille uten å logge inn?
     { name: "Registrer", href: "/registrer" },
+    
 ]
 
 
