@@ -16,15 +16,6 @@ export default function Home() {
           <button className="btn btn-primary" onClick={incrementCounter}>
             Øk teller
           </button>
-
-          <input id="inpCountPlayers" type="number" value={inpPlayerCount} onChange={
-                            (e) => {
-                                const value = parseInt(e.target.value) || 0;
-                                setInpPlayerCount(value); 
-                                console.log(inpPlayerCount)
-                            }}  
-                                className="form-control me-auto mb-2 w-75" required min="1" max={6}/>
-          <p>{inpPlayerCount}</p>
       </div>
     );
 }
