@@ -2,10 +2,11 @@ import { MouseEventHandler, useState } from "react"
 
 interface IconProps {
     iconName: string;
-    onClick: () => void;
+    onClick?: () => void | ((any : any) => void);
+    className?: string;
 }
 
-export default function Icon({iconName, onClick = () => {}} : IconProps){
+export default function Icon({iconName, onClick = () => {}, className} : IconProps){
         const [hover, setHover] = useState(false);
 
         const style = {
@@ -17,7 +18,7 @@ export default function Icon({iconName, onClick = () => {}} : IconProps){
 
     return (
         <i 
-            className={`bi bi-${iconName}`} 
+            className={`bi bi-${iconName} ${className}`} 
             style={style}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}

@@ -7,7 +7,16 @@ export default function Spill(){
     const [isInpMenuVisible, setIsInpMenuVisible] = useState<boolean>(true);
     const [playersMenu, setPlayersMenu] = useState<ReactElement[]>([]);
 
+    {/**
+        Er ikke compatible for mobil enda. Bare desktop...
+    */}
+
     //Legger til antall spillere brukeren har oppgitt
+
+    const handleDeletePlayer = (deletePlayer: string) => {
+        setPlayersMenu((prevPlayers) => prevPlayers.filter((player) => player.key !== deletePlayer));
+    }
+    
     const addPlayers = () => {
 
         if(inpPlayerCount > 1 && inpPlayerCount < maxSpillere){
@@ -21,11 +30,12 @@ export default function Spill(){
 
             for(let i = 0; i<inpPlayerCount; i++){
                     newItems.push(
-                    <div className="mt-4 mx-3" key={i}>
+                    <div className="mt-4 mx-3 d-flex flex-row align-items-center" key={`player-${i}`}>
                         <div className="input-group">
                             <label htmlFor="inpSpiller" className="input-group-text" style={{fontSize: "80%"}}>Spiller {i+1}:</label>
                             <input id="inpNavn1" type="text" className="form-control" />
                         </div>
+                        <Icon iconName="x-lg" onClick={() => handleDeletePlayer(`player-${i}`)} className="ms-1" />
                     </div>
                 )
             }
@@ -47,11 +57,12 @@ export default function Spill(){
                 const newCount = prevCount + 1;
 
                 setPlayersMenu( prevItems => [...prevItems,
-                    <div className="mt-4 mx-3" key={newCount+"-"+Date.now()}>
+                    <div className="mt-4 mx-3 d-flex flex-row align-items-center" key={`player-${newCount}`}>
                         <div className="input-group">
-                            <label htmlFor="inpSpiller" className="input-group-text" style={{fontSize: "80%"}}>Spiller {newCount}:</label>
+                            <label htmlFor="inpSpiller" className="input-group-text" style={{fontSize: "80%"}}>Spiller {newCount+1}:</label>
                             <input id="inpNavn1" type="text" className="form-control" />
                         </div>
+                        <Icon iconName="x-lg" onClick={() => handleDeletePlayer(`player-${newCount}`)} className="ms-1" />
                     </div>
                 ]);
 
