@@ -23,9 +23,7 @@ export default function Spill(){
             let newItems = [];
 
             newItems.push(
-                <div className="ms-auto me-2" style={{caretColor: "transparent"}} key="icon">
-                    <Icon iconName="plus-circle" onClick={addPlayer}/>
-                </div>
+                <Icon iconName="plus-circle" className="ms-auto mt-2 me-2" onClick={addPlayer}/>
             )
 
             for(let i = 0; i<inpPlayerCount; i++){
@@ -59,7 +57,7 @@ export default function Spill(){
                 setPlayersMenu( prevItems => [...prevItems,
                     <div className="mt-4 mx-3 d-flex flex-row align-items-center" key={`player-${newCount}`}>
                         <div className="input-group">
-                            <label htmlFor="inpSpiller" className="input-group-text" style={{fontSize: "80%"}}>Spiller {newCount+1}:</label>
+                            <label htmlFor="inpSpiller" className="input-group-text" style={{fontSize: "80%"}}>Spiller {newCount}:</label>
                             <input id="inpNavn1" type="text" className="form-control" />
                         </div>
                         <Icon iconName="x-lg" onClick={() => handleDeletePlayer(`player-${newCount}`)} className="ms-1" />
@@ -77,7 +75,7 @@ export default function Spill(){
     }
 
     let inpMenu: ReactElement = (
-        <div className="mx-4 mt-2" key="initial-menu">
+        <div className="mx-4 mt-3" key="initial-menu">
             <div className="fs-6 mb-1">Ant Spillere: (max {maxSpillere})</div>
             <input
                 id="inpCountPlayers"
@@ -113,11 +111,19 @@ export default function Spill(){
 
     return (
         <form id="schema">
-            <div id="main" className="container border border-warning" style={{height: "75vh"}}>
+            <div id="main" className="container" style={{height: "75vh"}}>
             <div className="row g-0  p-5 bg-dark text-light rounded" style={{height: "100%"}}>
-                <div id="map" className="container border border-secondary col-9 p-5 me-1">Kart placeholder</div>
-                <div id="options" className="d-flex flex-column align-items-center mx-0 border border-secondary rounded col-2 text-nowrap">
-                    <div id="menu" className="mt-2 d-flex flex-column align-items-column">
+                <div id="map" className="container border border-secondary p-5 me-1 
+                                            col-xl-9 col-lg-8 col-md-7 col-sm-6 
+                                            d-sm-block d-none">Kart placeholder</div>
+
+                <div id="options" className="d-flex flex-column align-items-center mx-0 border border-secondary rounded text-nowrap 
+                                            col-xl-2 col-lg-3 col-md-4 col-sm-5">
+
+                    <div id="menu" className="mt-2 d-flex flex-column align-items-column align-content-center">
+                        <label className="fs-5 align-self-center">
+                            Spill innstillinger
+                        </label>
                         {isInpMenuVisible ? inpMenu : playersMenu}
                     </div>
                     <button type="submit" className="btn btn-success mb-4 mt-auto w-50">Start spill</button>
