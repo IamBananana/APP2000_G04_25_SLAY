@@ -6,19 +6,18 @@
  */
 
 import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AppNavbar from './components/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+
+// Importer bildene 
+import stockGolf from './assets/stockGolf.jfif';
+import stockGolf2 from './assets/stockGolf2.jfif';
+import stockGolf3 from './assets/stockGolf3.jfif';
 
 const App: React.FC = () => {
-  // State for å holde styr på telleren
-  const [count, setCount] = useState<number>(0);
-
-  // Funksjon for å håndtere knappetrykk
-  const incrementCounter = () => {
-    setCount(count + 1);
-  };
-
-  // Definerer lenker som skal være i navbaren på de forskjellige sidene
+   // Definerer lenker som skal være i navbaren på de forskjellige sidene
+  // Import images
   const navLinks = [
     { name: "Hjem", href: "/" },
     { name: "Om oss", href: "/omOss" },
@@ -33,13 +32,43 @@ const App: React.FC = () => {
   return (
     <div>
       <AppNavbar links={navLinks} />
-      <div className="container" style={{ paddingTop: '70px' }}>
-        <h1 className="text-center">Velkommen til React med Bootstrap!</h1>
-        <h2 className="text-center">Teller: {count}</h2>
-        <button className="btn btn-primary" onClick={incrementCounter}>
-          Øk teller
-        </button>
+      <div className="main-container">
+        <h1>TeeTime</h1>
+        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src={stockGolf} className="d-block carousel-image" alt="Slide 1" />
+            </div>
+            <div className="carousel-item">
+              <img src={stockGolf2} className="d-block carousel-image" alt="Slide 2" />
+            </div>
+            <div className="carousel-item">
+              <img src={stockGolf3} className="d-block carousel-image" alt="Slide 3" />
+            </div>
+          </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
+      <div className="ye">
+          <h2>Velkommen til TeeTime
+          </h2>
+            <p>
+            TeeTime er en nettside for deg som liker golf. Her kan du finne informasjon om golfbaner, <br></br>bestille starttider, og delta i turneringer. Vi tilbyr også en rekke artikler og tips for å 
+            forbedre ditt spill. Bli med i vårt fellesskap og del din lidenskap for golf med andre entusiaster.
+            </p>
+        </div>
     </div>
   );
 };
