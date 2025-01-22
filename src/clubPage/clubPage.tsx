@@ -27,7 +27,7 @@ const ClubPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {/* Navbar */}
       <AppNavbar
         links={[
@@ -38,7 +38,7 @@ const ClubPage: React.FC = () => {
       />
 
       {/* Main Content */}
-      <div className="club-page" style={{ marginTop: "70px" }}>
+      <div className="club-page" style={{  }}>
         <h1 className="text-center mb-4">Min klubb</h1>
 
         {}
@@ -175,7 +175,7 @@ const ClubPage: React.FC = () => {
         </Row>
         <p className ="mail"> Konktakt oss: bø.discgolf@outlook.com</p>
       </div>
-    </div>
+    </>
   );
 };
 

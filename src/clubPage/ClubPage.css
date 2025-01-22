@@ -1,18 +1,31 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
 body {
   background-color: #265837;
   color: #212529;
-  margin: 0;
   font-family: "Arial", sans-serif;
+  overflow: auto;
 }
 
+/* Club Page */
 .club-page {
-  margin-top: 70px;
+  min-height: 100vh; /* Ensure it stretches to full viewport height */
   padding: 20px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 70px;
+  overflow-x: hidden; /* Prevent unwanted horizontal scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds viewport */
 }
 
+/* Panels */
 .panel-container {
   display: flex;
   gap: 20px;
@@ -20,16 +33,17 @@ body {
 }
 
 .panel {
-  flex: 1;
+  flex-grow: 1;
   padding: 20px;
   background-color: #ffffff;
   border: 3px solid #dee2e6;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: auto; /* Ensure scrolling works inside panels */
 }
 
+/* Headings */
 .club-page h1 {
   color: black;
   font-weight: bold;
@@ -37,6 +51,7 @@ body {
   margin-bottom: 20px;
 }
 
+/* Cards */
 .club-page .card {
   border: 3px solid #dee2e6;
   background-color: #ffffff;
@@ -62,32 +77,31 @@ body {
   font-size: 1rem;
 }
 
-.club-page button.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+.buttonMore {
+  background-color: #007BFF;
   color: white;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.club-page button.btn-primary:hover {
+.buttonMore:hover {
   background-color: #0056b3;
-  border-color: #004085;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.club-page a {
-  color: #007bff;
-  text-decoration: none;
+.buttonMore:active {
+  background-color: #003f8a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
 }
 
-.club-page a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
+/* Club Info */
 .club-info {
   display: flex;
   align-items: center;
@@ -102,6 +116,7 @@ body {
   object-fit: cover;
 }
 
+/* Courses Section */
 .courses {
   display: flex;
   flex-direction: column;
@@ -120,6 +135,7 @@ body {
   line-height: 1.5;
 }
 
+/* Social Media */
 .social-media {
   display: flex;
   gap: 20px;
@@ -147,6 +163,7 @@ body {
   object-fit: contain;
 }
 
+/* Mail Section */
 .mail {
   display: flex;
   align-items: center;
@@ -155,28 +172,4 @@ body {
   justify-content: center;
   font-size: 20px;
   font-weight: bold;
-}
-
-.buttonMore {
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.buttonMore:hover {
-  background-color: #0056b3;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.buttonMore:active {
-  background-color: #003f8a;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transform: scale(0.98);
 }

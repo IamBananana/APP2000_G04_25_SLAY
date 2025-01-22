@@ -6,7 +6,7 @@ const navLinks = [
     { name: "Om oss", href: "/omOss" },
     { name: "Kontakt", href: "/kontakt" },
     { name: "Spill", href: "/spill" }, //Kan man spille uten å logge inn?
-    { name: "Registrer", href: "/registrer" },
+    { name: "Registrer", href: "/register" },
     
 ]
 
