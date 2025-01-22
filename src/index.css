@@ -1,3 +1,4 @@
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,6 +36,9 @@ body {
   height: calc(100vh - 56px);
 }
 
+#b{
+  background-color: #5a805d;
+}
 
 h1 {
   font-size: 3.2em;
@@ -71,5 +75,6 @@ h1 {
   :root {
     color: #213547;
     background-color: #ffffff;
+    height: 100%;
   }
 }

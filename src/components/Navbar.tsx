@@ -15,6 +15,7 @@
 // "npm install --save-dev @types/react-bootstrap" i CMD
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 //struktur for typesikkerhet i tyepscript + react
 interface NavLink {
@@ -33,19 +34,19 @@ const AppNavbar: React.FC<AppNavbarProps> = ({ links }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
-        <Navbar.Brand href="/">TeeTime</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">TeeTime</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {leftLinks.map((link, index) => (
-              <Nav.Link key={index} href={link.href}>
+              <Nav.Link as={Link} key={index} to={link.href}>
                 {link.name}
               </Nav.Link>
             ))}
           </Nav>
           <Nav>
             {rightLinks.map((link, index) => (
-              <Nav.Link key={index} href={link.href}>
+              <Nav.Link as={Link} key={index} to={link.href}>
                 {link.name}
               </Nav.Link>
             ))}
