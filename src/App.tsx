@@ -6,19 +6,30 @@
  */
 
 import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import AppNavbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AppNavbar from "./components/Navbar";
+import ClubPage from "./clubPage/clubPage";
 
-const App: React.FC = () => {
-  // State for å holde styr på telleren
+const HomePage: React.FC = () => {
   const [count, setCount] = useState<number>(0);
 
-  // Funksjon for å håndtere knappetrykk
   const incrementCounter = () => {
     setCount(count + 1);
   };
 
-  // Definerer lenker som skal være i navbaren på de forskjellige sidene
+  return (
+    <div>
+      <h1 className="text-center">Velkommen til React med Bootstrap!</h1>
+      <h2 className="text-center">Teller: {count}</h2>
+      <button className="btn btn-primary" onClick={incrementCounter}>
+        Øk teller
+      </button>
+    </div>
+  );
+};
+
+const App: React.FC = () => {
   const navLinks = [
     { name: "Hjem", href: "/" },
     { name: "Om oss", href: "/omOss" },
@@ -31,16 +42,19 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div>
-      <AppNavbar links={navLinks} />
-      <div className="container" style={{ paddingTop: '70px' }}>
-        <h1 className="text-center">Velkommen til React med Bootstrap!</h1>
-        <h2 className="text-center">Teller: {count}</h2>
-        <button className="btn btn-primary" onClick={incrementCounter}>
-          Øk teller
-        </button>
+    <Router>
+      <div>
+        <AppNavbar links={navLinks} />
+        <div className="container" style={{paddingTop : "30px"}}>
+          <Routes>
+            {/* Define HomePage route */}
+            <Route path="/" element={<HomePage />} />
+            {/* Define ClubPage route */}
+            <Route path="/lag" element={<ClubPage />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
