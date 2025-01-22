@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import "../index.css";
 import stockGolf from '../assets/stockGolf.jfif';
 import stockGolf2 from '../assets/stockGolf2.jfif';
 import stockGolf3 from '../assets/stockGolf3.jfif';
