@@ -5,7 +5,7 @@ import stockGolf3 from '../assets/stockGolf3.jfif';
 
 export default function Home() {
     return (
-      <div className="main-container">
+      <div className="main-container text-white">
         <h1>TeeTime</h1>
         <div id="carouselWoo" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-indicators">
