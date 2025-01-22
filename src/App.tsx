@@ -1,10 +1,3 @@
-/**
- * @author Richard
- * Definerer hovedfunksjonaliteten for index.html
- * 
- * @returns {JSX.Element} Returnerer et JSX-element som representerer index
- */
-
 import React, { useState } from "react";
 import AppNavbar from './components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,12 +7,11 @@ import './index.css';
 import stockGolf from './assets/stockGolf.jfif';
 import stockGolf2 from './assets/stockGolf2.jfif';
 import stockGolf3 from './assets/stockGolf3.jfif';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './register/register';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import Register from './register/register';
 
 const App: React.FC = () => {
    // Definerer lenker som skal være i navbaren på de forskjellige sidene
-  // Import images
   const navLinks = [
     { name: "Hjem", href: "/" },
     { name: "Om oss", href: "/omOss" },
@@ -64,15 +56,14 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className="ye">
-          <h2>Velkommen til TeeTime
-          </h2>
-            <p>
-            TeeTime er en nettside for deg som liker golf. Her kan du finne informasjon om golfbaner, <br>
-            </br>bestille starttider, og delta i turneringer. Vi tilbyr også en rekke artikler og tips for å 
-            forbedre ditt spill. Bli med i vårt fellesskap og del din lidenskap for golf med andre entusiaster.
-            </p>
-        </div>
-    </div>
+        <h2>Velkommen til TeeTime</h2>
+        <p>
+          TeeTime er en nettside for deg som liker golf. Her kan du finne informasjon om golfbaner, <br />
+          bestille starttider, og delta i turneringer. Vi tilbyr også en rekke artikler og tips for å forbedre ditt spill. 
+          Bli med i vårt fellesskap og del din lidenskap for golf med andre entusiaster.
+        </p>
+      </div>
+    </Router>
   );
 };
 
