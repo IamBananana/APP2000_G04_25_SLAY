@@ -14,6 +14,8 @@ import './index.css';
 import stockGolf from './assets/stockGolf.jfif';
 import stockGolf2 from './assets/stockGolf2.jfif';
 import stockGolf3 from './assets/stockGolf3.jfif';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './register/register';
 
 const App: React.FC = () => {
    // Definerer lenker som skal være i navbaren på de forskjellige sidene
@@ -26,11 +28,11 @@ const App: React.FC = () => {
     { name: "Mitt lag", href: "/lag" },
     { name: "Min side", href: "/minSide" },
     { name: "Login", href: "/login" },
-    { name: "Registrer", href: "/registrer" },
+    { name: "Registrer", href: "/register" },
   ];
 
   return (
-    <div>
+    <Router>
       <AppNavbar links={navLinks} />
       <div className="main-container">
         <h1>TeeTime</h1>
