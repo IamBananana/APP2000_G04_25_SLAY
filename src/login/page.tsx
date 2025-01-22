@@ -5,7 +5,7 @@
     return (
         <div id="wrapper"
          className="container col-md-6 d-flex flex-column justify-content-around align-items-center border border-success
-         bg-light rounded p-5 align-self-center">
+         bg-light rounded p-5">
 
             <img src={logo} className="img w-25" alt="logo"/>
             

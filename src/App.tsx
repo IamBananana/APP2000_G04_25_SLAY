@@ -3,14 +3,10 @@ import AppNavbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-// Importer bildene 
-import stockGolf from './assets/stockGolf.jfif';
-import stockGolf2 from './assets/stockGolf2.jfif';
-import stockGolf3 from './assets/stockGolf3.jfif';
 //import { Router } from "react-router-dom";
 
 //Denne navningen er fra chatGPT, men forklarer oppsettet under bedre.
-import { Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import Login from "./login/login";
 import Home from "./home/home";
 import Spill from "./spill/spill";
