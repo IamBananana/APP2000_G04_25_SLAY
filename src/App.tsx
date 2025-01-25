@@ -12,6 +12,7 @@ import Spill from "./spill/spill";
 import Register from "./register/register";
 import ClubPage from "./clubPage/clubPage";
 import Footer from "./components/footer";
+import OmOss from "./omOss/omOss";
 // import Register from './register/register';
 
 const App: React.FC = () => {
@@ -37,6 +38,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/spill" element={<Spill />} />
           <Route path="/lag" element={<ClubPage />} />
+          <Route path="/omOss" element={<OmOss />} />
         </Routes>
         <Footer />
       </>

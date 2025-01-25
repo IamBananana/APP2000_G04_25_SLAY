@@ -1,0 +1,72 @@
+
+.om-oss-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px; 
+    margin-top: -20px; 
+    position: relative; 
+  }
+  
+  .om-oss-header {
+    margin-bottom: 20px;
+    text-align: center;
+    position: absolute; 
+    top: -50px; 
+  }
+  
+  .om-oss-header h1 {
+    font-size: 3.5rem;
+    color: #14532d; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+    font-weight: bold; 
+  }
+  
+  .om-oss-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 60px; 
+  }
+  
+  .om-oss-section {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    text-align: left;
+  }
+  
+  .om-oss-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #1b5e20;
+  }
+  
+  .om-oss-section p,
+  .om-oss-section ul {
+    font-size: 1rem;
+    color: #4e4e4e;
+    line-height: 1.6;
+  }
+  
+  .om-oss-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .om-oss-section li {
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .om-oss-main {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+  
