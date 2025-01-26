@@ -32,21 +32,19 @@ const App: React.FC = () => {
 
   return (
     <>
-      <header id="header">
-    <AppNavbar links={navLinks} />
-    <div className="main-content">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/spill" element={<Spill />} />
-        <Route path="/lag" element={<ClubPage />} />
-          <Route path="/omOss" element={<OmOss />} />
-      </Routes>
-    </div>
-      </header>
-    <Footer />
-  </>
+      <AppNavbar links={navLinks} />
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/spill" element={<Spill />} />
+          <Route path="/lag" element={<ClubPage />} />
+            <Route path="/omOss" element={<OmOss />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 };
 
