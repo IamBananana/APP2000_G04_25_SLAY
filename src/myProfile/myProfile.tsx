@@ -1,8 +1,8 @@
 import React from 'react'; // Ensure React is imported
-import { Row, Col, Card, Placeholder } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 
 
-import AppNavbar from "../components/Navbar"; // Import the navbar component
+
 import "./myProfile.css"; // Your custom styles
 import "../index.css"; // Any global styles
 

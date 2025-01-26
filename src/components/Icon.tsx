@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react"
+import { useState } from "react"
 
 interface IconProps {
     iconName: string;

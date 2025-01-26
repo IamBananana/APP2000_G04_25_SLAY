@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AppNavbar from "../components/Navbar"; 
 import { Row, Col, Card } from "react-bootstrap";
 import "./ClubPage.css";
 
@@ -19,7 +18,11 @@ const ClubPage: React.FC = () => {
         const data = await response.json();
         setWeatherData(data);
       } catch (err) {
-        setError(err.message);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
       }
     };
 
