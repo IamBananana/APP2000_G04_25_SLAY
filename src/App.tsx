@@ -2,6 +2,7 @@ import React from "react";
 import AppNavbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 //import { Router } from "react-router-dom";
 
 //Denne navningen er fra chatGPT, men forklarer oppsettet under bedre.
@@ -11,8 +12,9 @@ import Home from "./home/home";
 import Spill from "./spill/spill";
 import Register from "./register/register";
 import ClubPage from "./clubPage/clubPage";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import OmOss from "./omOss/omOss";
+
 // import Register from './register/register';
 
 const App: React.FC = () => {
@@ -30,6 +32,7 @@ const App: React.FC = () => {
 
   return (
       <>
+      <header id="header">
         <AppNavbar links={navLinks} />
         <Routes>
           {/* Definerer ruten for Register-siden */}
@@ -40,6 +43,7 @@ const App: React.FC = () => {
           <Route path="/lag" element={<ClubPage />} />
           <Route path="/omOss" element={<OmOss />} />
         </Routes>
+      </header>
         <Footer />
       </>
   );
