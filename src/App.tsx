@@ -32,19 +32,20 @@ const App: React.FC = () => {
   ];
 
   return (
-      <>
-        <AppNavbar links={navLinks} />
+    <>
+      <AppNavbar links={navLinks} />
+      <div className="main-content">
         <Routes>
-          {/* Definerer ruten for Register-siden */}
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/spill" element={<Spill />} />
           <Route path="/lag" element={<ClubPage />} />
-          <Route path="/minSide" element={<MyProfile />} />
+            <Route path="/omOss" element={<OmOss />} />
         </Routes>
-        <Footer />
-      </>
+      </div>
+      <Footer />
+    </>
   );
 };
 
