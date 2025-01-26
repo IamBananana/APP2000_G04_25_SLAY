@@ -14,6 +14,7 @@ import Register from "./register/register";
 import ClubPage from "./clubPage/clubPage";
 import Footer from "./components/Footer";
 import OmOss from "./omOss/omOss";
+import MyProfile from "./myProfile/myProfile";
 
 // import Register from './register/register';
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/spill" element={<Spill />} />
           <Route path="/lag" element={<ClubPage />} />
+          <Route path="/minSide" element={<MyProfile />} />
         </Routes>
         <Footer />
       </>
