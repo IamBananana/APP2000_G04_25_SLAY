@@ -30,7 +30,7 @@
             </div>
             
             <div>
-                Har du ikke bruker? <a href="/registrer" className='text-decoration-none'>Registrer deg!</a>
+                Har du ikke bruker? <a href="/register" className='text-decoration-none'>Registrer deg!</a>
             </div>
 
         </div>
