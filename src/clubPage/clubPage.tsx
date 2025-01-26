@@ -29,13 +29,13 @@ const ClubPage: React.FC = () => {
   return (
     <>
       {/* Navbar */}
-      <AppNavbar
+      {/*<AppNavbar
         links={[
           { name: "Hjem", href: "/" },
           { name: "Mitt lag", href: "/lag" },
           { name: "Om oss", href: "/omOss" },
         ]}
-      />
+      /> */}
 
       {/* Main Content */}
       <div className="club-page" style={{  }}>

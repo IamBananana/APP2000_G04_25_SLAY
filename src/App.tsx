@@ -11,7 +11,7 @@ import Home from "./home/home";
 import Spill from "./spill/spill";
 import Register from "./register/register";
 import ClubPage from "./clubPage/clubPage";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 // import Register from './register/register';
 
 const App: React.FC = () => {
@@ -28,18 +28,19 @@ const App: React.FC = () => {
   ];
 
   return (
-      <>
-        <AppNavbar links={navLinks} />
-        <Routes>
-          {/* Definerer ruten for Register-siden */}
-          <Route path="/" element={<Home />}/>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/spill" element={<Spill />} />
-          <Route path="/lag" element={<ClubPage />} />
-        </Routes>
-        <Footer />
-      </>
+    <>
+    <AppNavbar links={navLinks} />
+    <div className="main-content">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/spill" element={<Spill />} />
+        <Route path="/lag" element={<ClubPage />} />
+      </Routes>
+    </div>
+    <Footer />
+  </>
   );
 };
 

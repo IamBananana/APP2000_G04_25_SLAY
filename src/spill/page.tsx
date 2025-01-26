@@ -111,24 +111,24 @@ export default function Spill(){
 
     return (
         <form id="schema">
-            <div id="main" className="container" style={{height: "75vh"}}>
-            <div className="row g-0  p-5 bg-dark text-light rounded" style={{height: "100%"}}>
-                <div id="map" className="container border border-secondary p-5 me-1 
-                                            col-xl-9 col-lg-8 col-md-7 col-sm-6 
-                                            d-sm-block d-none">Kart placeholder</div>
+            <div id="main" className="container mt-5" style={{height: "75vh"}}>
+                <div className="row g-0  p-5 bg-dark text-light rounded" style={{height: "100%"}}>
+                    <div id="map" className="container border border-secondary p-5 me-1 
+                                                col-xl-9 col-lg-8 col-md-7 col-sm-6 
+                                                d-sm-block d-none">Kart placeholder</div>
 
-                <div id="options" className="d-flex flex-column align-items-center mx-0 border border-secondary rounded text-nowrap 
-                                            col-xl-2 col-lg-3 col-md-4 col-sm-5">
+                    <div id="options" className="d-flex flex-column align-items-center mx-0 border border-secondary rounded text-nowrap 
+                                                col-xl-2 col-lg-3 col-md-4 col-sm-5">
 
-                    <div id="menu" className="mt-2 d-flex flex-column align-items-column align-content-center">
-                        <label className="fs-5 align-self-center">
-                            Spill innstillinger
-                        </label>
-                        {isInpMenuVisible ? inpMenu : playersMenu}
+                        <div id="menu" className="mt-2 d-flex flex-column align-items-column align-content-center">
+                            <label className="fs-5 align-self-center">
+                                Spill innstillinger
+                            </label>
+                            {isInpMenuVisible ? inpMenu : playersMenu}
+                        </div>
+                        <button type="submit" className="btn btn-success mb-4 mt-auto w-50">Start spill</button>
                     </div>
-                    <button type="submit" className="btn btn-success mb-4 mt-auto w-50">Start spill</button>
                 </div>
-            </div>
             </div>
         </form>
     )

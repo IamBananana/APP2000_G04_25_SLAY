@@ -32,7 +32,7 @@ const AppNavbar: React.FC<AppNavbarProps> = ({ links }) => {
   const rightLinks = links.filter(link => ['Min side', 'Login', 'Registrer'].includes(link.name));
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="dark" variant="dark" expand="lg" sticky='top'>
       <Container>
         <Navbar.Brand as={Link} to="/">TeeTime</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

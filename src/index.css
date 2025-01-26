@@ -14,9 +14,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1; /* Push the footer down by taking available space */
+}
+
 html, body {
   overflow: auto; /* Ensure scrolling is allowed */
   height: 100%;
+  width: 100vw;
 }
 
 body {
@@ -24,7 +38,7 @@ body {
   display: flex;
   place-items: center;
   padding-top: 56px; /* Adjust based on your navbar height */
-  min-width: 320px;
+  min-width: 100vw;
   min-height: 100vh;
   background-color: rgb(8, 49, 8);
   overflow-y: scroll;
@@ -40,8 +54,6 @@ body {
   width: 100%;
   height: calc(100vh - 56px);
 }
-
-
 
 #b{
   background-color: #5a805d;
