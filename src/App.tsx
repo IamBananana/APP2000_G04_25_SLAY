@@ -42,6 +42,7 @@ const App: React.FC = () => {
           <Route path="/spill" element={<Spill />} />
           <Route path="/lag" element={<ClubPage />} />
             <Route path="/omOss" element={<OmOss />} />
+            <Route path="/minSide" element={<MyProfile />} />
         </Routes>
       </div>
       <Footer />

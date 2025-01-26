@@ -7,18 +7,11 @@ import "./myProfile.css"; // Your custom styles
 import "../index.css"; // Any global styles
 
 
-const navLinks = [
-    { name: "Hjem", href: "/" },
-    { name: "Om oss", href: "/omOss" },
-    { name: "Kontakt", href: "/kontakt" },
-    { name: "Spill", href: "/spill" }, 
-    { name: "Registrer", href: "/register" },
-];
 
 const MyProfile: React.FC = () => {
     return (
         <>
-            <AppNavbar links={navLinks} />
+            
             <div className="myProfile-page" style={{  }}>
                 <h1 className="text-center mb-4"> Min side </h1>
                 
