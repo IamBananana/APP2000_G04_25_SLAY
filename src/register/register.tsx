@@ -69,7 +69,7 @@ const Register: React.FC = () => {
       </button>
 
       <div className="mb-4">
-        Har du allerede bruker? <a href="/" className="text-decoration-none">Logg inn</a>
+        Har du allerede bruker? <a href="/login" className="text-decoration-none">Logg inn</a>
       </div>
     </div>
   );
