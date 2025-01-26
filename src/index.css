@@ -28,16 +28,19 @@
 }
 
 html, body {
-  overflow: auto; /* Ensure scrolling is allowed */
+  overflow: auto;
   height: 100%;
-  width: 100vw;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  padding-top: 56px; /* Adjust based on your navbar height */
+  padding-top: 56px; 
   min-width: 100vw;
   min-height: 100vh;
   background-color: rgb(8, 49, 8);
@@ -57,36 +60,6 @@ body {
 
 #b{
   background-color: #5a805d;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin-bottom: 20px;
-}
-.carousel {
-  width:640px;
-  height:360px;
-}
- 
-  .carousel-inner {
-    width: 100%;  
-    height: 400px; 
-  }
-
-  .carousel-item {
-    height: 400px; 
-  } 
-
-  .carousel-image {
-    width: 100%;
-    height: 100%; 
-    object-fit: cover;  
-    object-position: center; 
-  }
-.ye{
-  text-align: center;
-  margin-bottom: 5%;
 }
 
 
