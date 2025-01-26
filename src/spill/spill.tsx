@@ -15,7 +15,6 @@ export default function Spill(){
 
     return(
         <>
-            <AppNavbar links={navLinks} />
             <Page />
         </>
     )

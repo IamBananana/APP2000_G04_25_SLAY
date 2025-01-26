@@ -15,7 +15,6 @@ export default function Login(){
     {
         return (
             <>
-                <AppNavbar links={navLinks}></AppNavbar>
                 <Page />
             </>
         )
