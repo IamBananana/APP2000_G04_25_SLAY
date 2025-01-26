@@ -1,4 +1,4 @@
-import MyCarousel from '../components/myCarousel';
+import MyCarousel from '../components/MyCarousel';
 import '../home/home.css';
 import HjemOm from '../components/HjemOm';
 
