@@ -1,12 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppNavbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-
-//import { Router } from "react-router-dom";
-
-//Denne navningen er fra chatGPT, men forklarer oppsettet under bedre.
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 import Login from "./login/login";
 import Home from "./home/home";
 import Spill from "./spill/spill";
@@ -16,10 +11,10 @@ import Footer from "./components/Footer";
 import OmOss from "./omOss/omOss";
 import MyProfile from "./myProfile/myProfile";
 
-// import Register from './register/register';
 
 const App: React.FC = () => {
-  // Definerer lenker som skal være i navbaren på de forskjellige sidene
+  
+
   const navLinks = [
     { name: "Hjem", href: "/" },
     { name: "Om oss", href: "/omOss" },
@@ -41,8 +36,8 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/spill" element={<Spill />} />
           <Route path="/lag" element={<ClubPage />} />
-            <Route path="/omOss" element={<OmOss />} />
-            <Route path="/minSide" element={<MyProfile />} />
+          <Route path="/omOss" element={<OmOss />} />
+          <Route path="/minSide" element={<MyProfile />} />
         </Routes>
       </div>
       <Footer />
