@@ -31,17 +31,11 @@ const MyProfile: React.FC = () => {
 
     testConnection();
 
+    // Fetch user data from localStorage
     const fetchUserData = async () => {
-      const { data, error } = await supabase
-        .from("bruker")
-        .select("*")
-        .eq("BrukerID", 1) // Column name in lowercase (brukerid)
-        .single(); // Use .single() to get a single record
-
-      if (error) {
-        console.error("Error fetching user data:", error);
-      } else {
-        setUserData(data); // Now `data` will be treated as a single object
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUserData(JSON.parse(storedUser)); // Hent brukerinformasjon fra localStorage
       }
       setLoading(false); // Set loading to false after the data is fetched
     };

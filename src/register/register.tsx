@@ -1,13 +1,45 @@
 import React, { useState } from 'react';
 import logo from '../assets/android-chrome-512x512.png';
+import { SupabaseClient } from '@supabase/supabase-js';
+import supabase from '../db'; // Importer den ferdigkonfigurerte Supabase-klienten
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra react-router-dom
 
 const Register: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const navigate = useNavigate(); // For navigasjon etter registrering
 
-  const handleRegister = () => {
-    console.log('Registrering:', { username, email, password });
+  const handleRegister = async (): Promise<void> => {
+    if (!username || !email || !password) {
+      setMessage('Alle felt må fylles ut.');
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('bruker')
+        .insert([{ "BrukerNavn": username, "Epost": email, "Passord": password }])
+        .select()
+        .single(); // Bruk .single() for å hente den nylig registrerte brukeren
+
+      if (error) {
+        console.error('Feil under registrering:', error);
+        setMessage('Noe gikk galt. Vennligst prøv igjen.');
+        return;
+      }
+
+      // Lagre brukerinformasjon i localStorage
+      localStorage.setItem('user', JSON.stringify(data));
+      console.log('Registrering vellykket, data:', data);
+
+      // Naviger til "Min side"
+      navigate('/minside');
+    } catch (err) {
+      console.error('Uventet feil under registrering:', err);
+      setMessage('Noe gikk galt. Vennligst prøv igjen.');
+    }
   };
 
   return (
@@ -30,11 +62,11 @@ const Register: React.FC = () => {
           type="text"
           placeholder="Brukernavn"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUsername(e.target.value)
+          }
         />
-        <label htmlFor="inpBrukernavn" style={{ padding: 'calc(var(bs-gutter-x)* .5)' }}>
-          Brukernavn
-        </label>
+        <label htmlFor="inpBrukernavn">Brukernavn</label>
       </div>
 
       <div className="form-floating mb-3">
@@ -44,7 +76,9 @@ const Register: React.FC = () => {
           type="email"
           placeholder="E-post"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
         <label htmlFor="inpEmail">E-post</label>
       </div>
@@ -56,7 +90,9 @@ const Register: React.FC = () => {
           type="password"
           placeholder="Passord"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         />
         <label htmlFor="inpPassord">Passord</label>
       </div>
@@ -67,6 +103,8 @@ const Register: React.FC = () => {
       >
         Registrer
       </button>
+
+      {message && <div className="alert alert-info mt-3">{message}</div>}
 
       <div className="mb-4">
         Har du allerede bruker? <a href="/login" className="text-decoration-none">Logg inn</a>
