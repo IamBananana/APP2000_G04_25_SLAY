@@ -25,7 +25,7 @@
 
 .main-content {
   flex: 1; /* Push the footer down by taking available space */
-}
+} /*kommentar */
 
 html, body {
   overflow: auto;
