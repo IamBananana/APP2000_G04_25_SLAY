@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logo from '../assets/android-chrome-512x512.png';
-import { SupabaseClient } from '@supabase/supabase-js';
 import supabase from '../db'; // Importer den ferdigkonfigurerte Supabase-klienten
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra react-router-dom
 
