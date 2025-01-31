@@ -1,7 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import connectHistoryApiFallback from 'connect-history-api-fallback';
 
-// https://vite.dev/config/
+// Vite-konfigurasjon
 export default defineConfig({
-  plugins: [react()],
-})
+  server: {
+    middlewareMode: true,
+  },
+  plugins: [
+    {
+      name: 'custom-middleware',
+      configureServer(server) {
+        server.middlewares.use(connectHistoryApiFallback({
+          index: '/index.html', // Pass på at du har en riktig index.html
+          verbose: true,  // Slå på verbose for mer informasjon om hva som skjer
+        }));
+      }
+    }
+  ]
+});
