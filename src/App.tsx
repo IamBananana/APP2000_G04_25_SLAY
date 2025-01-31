@@ -10,6 +10,7 @@ import ClubPage from "./clubPage/clubPage";
 import Footer from "./components/Footer";
 import OmOss from "./omOss/omOss";
 import MyProfile from "./myProfile/myProfile";
+import Kontakt from "./kontakt/kontakt";
 
 
 const App: React.FC = () => {
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           <Route path="/lag" element={<ClubPage />} />
           <Route path="/omOss" element={<OmOss />} />
           <Route path="/minSide" element={<MyProfile />} />
+          <Route path="/kontakt" element={<Kontakt />} />
         </Routes>
       </div>
       <Footer />
