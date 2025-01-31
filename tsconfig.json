@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",  // Use commonjs for Node.js compatibility
-    "moduleResolution": "node",
-    "outDir": "./dist",
-    "rootDir": "./server",  // Ensure this points to your server directory
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
     "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
   },
-  "include": [
-    "server/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

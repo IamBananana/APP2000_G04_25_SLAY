@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import logo from '../assets/android-chrome-512x512.png';
-import supabase from '../db'; // Importer den ferdigkonfigurerte Supabase-klienten
-import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const navigate = useNavigate(); // For navigasjon etter registrering
+  const navigate = useNavigate(); // For navigation after registration
 
   const handleRegister = async (): Promise<void> => {
     if (!username || !email || !password) {
-      setMessage('Alle felt må fylles ut.');
+      setMessage('Alle felt må fylles ut.'); // All fields must be filled
       return;
     }
 
     try {
-      const { data, error } = await supabase
-        .from('bruker')
-        .insert([{ "BrukerNavn": username, "Epost": email, "Passord": password }])
-        .select()
-        .single(); // Bruk .single() for å hente den nylig registrerte brukeren
+      const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
 
-      if (error) {
-        console.error('Feil under registrering:', error);
-        setMessage('Noe gikk galt. Vennligst prøv igjen.');
-        return;
+      const data = await response.json();
+
+      if (response.ok) {
+        // Successful registration
+        localStorage.setItem('user', JSON.stringify(data.data));
+        console.log('Registrering vellykket, data:', data.data);
+
+        // Navigate to the "Min side"
+        navigate('/minside');
+      } else {
+        // Registration failed
+        console.error('Feil under registrering:', data.error);
+        setMessage(data.error || 'Noe gikk galt. Vennligst prøv igjen.');
       }
-
-      // Lagre brukerinformasjon i localStorage
-      localStorage.setItem('user', JSON.stringify(data));
-      console.log('Registrering vellykket, data:', data);
-
-      // Naviger til "Min side"
-      navigate('/minside');
     } catch (err) {
       console.error('Uventet feil under registrering:', err);
       setMessage('Noe gikk galt. Vennligst prøv igjen.');
