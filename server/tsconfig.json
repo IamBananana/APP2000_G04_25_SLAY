@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2020",
     "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "./dist",  // Kompilerte filer vil ende opp i dist-mappen
+    "rootDir": "./src",  // Kildefiler er i src-mappen
+    "strict": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"],  // Inkluder alle .ts-filer i src-mappen
+  "exclude": ["node_modules"]  // Ekskluder node_modules-mappen
 }

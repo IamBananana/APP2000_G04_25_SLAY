@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button, Modal, Form, Spinner } from "react-bootstrap";
-import "../index.css"; // Any global styles (including Bootstrap)
-import "./myProfile.css"; // Your custom styles
+import { Row, Col, Card, Button, Modal, Form } from "react-bootstrap";
+import "../index.css"; // Global styles (including Bootstrap)
+import "./myProfile.css"; // Custom styles
 
 interface Bruker {
   BrukerID: number;
@@ -21,27 +21,19 @@ const MyProfile: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [modalMessage, setModalMessage] = useState<string>("");
-  const [modalDeleteMessage, setModalDeleteMessage] = useState<string>("");
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-
-    if (!userId) {
-      setConnectionError("Ingen bruker funnet. Logg inn på nytt.");
-      setLoading(false);
-      return;
-    }
-
-    // Fetch user data from Express backend
+    // Fetch user data from localStorage
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`/api/user/profile?userId=${userId}`);
-        const data = await response.json();
-        setUserData(data);
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUserData(JSON.parse(storedUser)); // Fetch user info from localStorage
+        }
+        setLoading(false); // Set loading to false after the data is fetched
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setConnectionError("Kunne ikke hente brukerdata.");
-      } finally {
+        setConnectionError("Kunne ikke laste brukerdata. Vennligst prøv igjen.");
         setLoading(false);
       }
     };
@@ -56,25 +48,35 @@ const MyProfile: React.FC = () => {
       return;
     }
 
+    if (userData?.Passord !== currentPassword) {
+      setModalMessage("Gammelt passord er feil.");
+      return;
+    }
+
     try {
-      const response = await fetch("/api/user/update-password", {
+      const response = await fetch("http://localhost:5000/update-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userData?.BrukerID,
+          brukerID: userData.BrukerID,
           currentPassword,
           newPassword,
         }),
       });
 
-      const result = await response.json();
-      setModalMessage(result.message);
-      setTimeout(() => setShowModal(false), 2000);
-    } catch (error: any) {
-      console.error("Error updating password:", error);
-      setModalMessage(error.message || "Noe gikk galt.");
+      const data = await response.json();
+
+      if (response.ok) {
+        setModalMessage(data.message);
+        setTimeout(() => setShowModal(false), 2000);
+      } else {
+        setModalMessage(data.message);
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
     }
   };
 
@@ -83,146 +85,109 @@ const MyProfile: React.FC = () => {
     if (!userData) return;
 
     try {
-      const response = await fetch("/api/user/delete-account", {
+      const response = await fetch("http://localhost:5000/delete-account", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: userData.BrukerID }),
+        body: JSON.stringify({
+          brukerID: userData.BrukerID,
+        }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        localStorage.removeItem("userId");
-        window.location.href = "/";
+        localStorage.removeItem("user"); // Clear local storage
+        window.location.href = "/"; // Redirect to homepage after deletion
       } else {
-        const result = await response.json();
-        setModalDeleteMessage(result.message || "Noe gikk galt.");
+        setModalMessage(data.message);
       }
-    } catch (error: any) {
-      console.error("Error deleting account:", error);
-      setModalDeleteMessage(error.message || "Noe gikk galt.");
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
     }
   };
 
+  // Loading or error message
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (connectionError) {
+    return <div>{connectionError}</div>;
+  }
+
+  if (!userData) {
+    return <div>Brukeren er ikke logget inn.</div>;
+  }
+
   return (
-    <div className="myProfile-page">
-      <h1 className="text-center mb-4">Min side</h1>
+    <div className="my-profile-container">
+      <Row>
+        <Col md={6}>
+          <Card>
+            <Card.Body>
+              <h3>Min Profil</h3>
+              <p><strong>Brukernavn:</strong> {userData.BrukerNavn}</p>
+              <p><strong>E-post:</strong> {userData.Epost}</p>
+              {/* Add more fields if necessary */}
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={6}>
+          <Button variant="primary" onClick={() => setShowModal(true)}>
+            Endre Passord
+          </Button>
+          <Button variant="danger" onClick={() => setShowDeleteModal(true)} className="ml-2">
+            Slett Konto
+          </Button>
+        </Col>
+      </Row>
 
-      {connectionError ? (
-        <p className="text-danger">{connectionError}</p>
-      ) : loading ? (
-        <div className="text-center">
-          <Spinner animation="border" />
-          <p>Laster profil...</p>
-        </div>
-      ) : (
-        <>
-          <Row className="d-flex align-items-stretch">
-            <Col md={6} className="d-flex">
-              <Card className="mb-4 flex-fill">
-                <Card.Body>
-                  <Card.Title>Kontoopplysninger</Card.Title>
-                  <div className="profile-info">
-                    <Card.Text className="profile-details">
-                      <strong>Medlemsnummer: </strong> {userData?.BrukerID} <br />
-                      <strong>Brukernavn: </strong> {userData?.BrukerNavn} <br />
-                      <strong>E-post: </strong> {userData?.Epost} <br />
-                      <strong>Passord: </strong> **********
-                      <Button
-                        variant="link"
-                        className="passwordLink"
-                        onClick={() => setShowModal(true)}
-                      >
-                        Endre passord
-                      </Button>
-                      <br />
-                      <strong>Medlemskap: </strong> Bø Discgolf <br />
-                      <a href="medlemskap#" className="passwordLink">
-                        Administrer medlemskap
-                      </a>
-                      <span
-                        className="deleteAccountLink mt-2 d-block"
-                        onClick={() => setShowDeleteModal(true)}
-                      >
-                        Slett konto
-                      </span>
-                    </Card.Text>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
+      {/* Modal for updating password */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Endre Passord</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Gammelt passord</Form.Label>
+              <Form.Control
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Nytt passord</Form.Label>
+              <Form.Control
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" onClick={handlePasswordUpdate}>
+              Oppdater Passord
+            </Button>
+          </Form>
+          {modalMessage && <p>{modalMessage}</p>}
+        </Modal.Body>
+      </Modal>
 
-            <Col md={6} className="d-flex">
-              <Card className="mb-4 flex-fill">
-                <Card.Body>
-                  <Card.Title>Min statistikk</Card.Title>
-                  <strong>Runder spilt: </strong> 10 <br />
-                  <strong>Gjennomsnittlig kast per hull: </strong> 3.4 <br />
-                  <strong>Beste score: </strong> 41 <br />
-                  <strong>Hole-in-ones: </strong> 3 <br />
-                  <strong>PDGA: </strong> 722 <br />
-                  <Button variant="link" className="buttonMore">Les mer.</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Passordendringsmodal */}
-          <Modal show={showModal} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Endre passord</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group>
-                  <Form.Label>Gammelt passord</Form.Label>
-                  <Form.Control
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Nytt passord</Form.Label>
-                  <Form.Control
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </Form.Group>
-              </Form>
-              <p className="text-danger">{modalMessage}</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                Lukk
-              </Button>
-              <Button variant="primary" onClick={handlePasswordUpdate}>
-                Oppdater passord
-              </Button>
-            </Modal.Footer>
-          </Modal>
-
-          {/* Slett konto modal */}
-          <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Bekreft sletting</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Er du sikker på at du vil slette kontoen din? Dette kan ikke angres.
-              <p className="text-danger">{modalDeleteMessage}</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                Avbryt
-              </Button>
-              <Button variant="danger" onClick={handleAccountDelete}>
-                Slett konto
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </>
-      )}
+      {/* Modal for account deletion */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Er du sikker på at du vil slette kontoen din?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Dette kan ikke angres!</p>
+          <Button variant="danger" onClick={handleAccountDelete}>
+            Slett Konto
+          </Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

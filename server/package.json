@@ -3,32 +3,27 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "nodemon --exec ts-node server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "Backend server for handling API requests and serving the React app.",
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "pg": "^8.13.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^6.29.0"
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
-    "@types/connect-history-api-fallback": "^1.5.4",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "connect-history-api-fallback": "^2.0.0",
-    "nodemon": "^3.1.9",
+    "@types/pg": "^8.11.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
-  }
+  },
+  "description": "Backend server for handling API requests.",
+  "license": "ISC"
 }
