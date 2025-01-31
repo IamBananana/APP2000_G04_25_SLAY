@@ -1,23 +1,26 @@
-// src/routes/api.ts
-import express, { Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
+import { supabase } from '../db';  // Import supabase from db.ts
 
-const router = express.Router();
+const router = Router();
 
-// Register route handler
+// ✅ Change from GET to POST
 router.post('/register', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   try {
-    // Add your registration logic here, e.g., saving to a database
-    // For example, you might use Supabase or another database service
+    // Insert the user into Supabase
+    const { data, error } = await supabase.from('users').insert([{ username, email, password }]);
 
-    // Sending a successful response
-    res.status(200).json({ message: 'Registration successful', data: { username, email } });
-  } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ message: 'Something went wrong during registration' });
+    if (error) {
+      console.error('Supabase error:', error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+
+    return res.json({ success: true, data });
+  } catch (err) {
+    console.error('Server error:', err);
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
 
 export default router;
-  

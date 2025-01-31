@@ -17,7 +17,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const response = await axios.post('/api/register', {
+      const response = await axios.post('../../server/src/routes/api.ts', {  // ✅ Correct API URL
         username,
         email,
         password,
