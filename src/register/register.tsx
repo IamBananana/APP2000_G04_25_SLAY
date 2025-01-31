@@ -7,40 +7,40 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // For navigation after registration
 
   const handleRegister = async (): Promise<void> => {
-    setMessage('');
-    
-    // Trim inputs for any leading/trailing spaces (optional)
-    const trimmedUsername = username.trim();
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
-
-    setLoading(true);
+    if (!username || !email || !password) {
+      setMessage('Alle felt må fylles ut.'); // All fields must be filled
+      return;
+    }
 
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: trimmedUsername,
-          email: trimmedEmail,
-          password: trimmedPassword,
+          username,
+          email,
+          password,
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setMessage(errorData.message || 'Noe gikk galt. Prøv igjen.');
-      } else {
-        const data = await response.json();
-        localStorage.setItem('userId', data.userId);
-        console.log('Registrering vellykket, data:', data);
+      const data = await response.json();
+
+      if (response.ok) {
+        // Successful registration
+        localStorage.setItem('user', JSON.stringify(data.data));
+        console.log('Registrering vellykket, data:', data.data);
+
+        // Navigate to the "Min side"
         navigate('/minside');
+      } else {
+        // Registration failed
+        console.error('Feil under registrering:', data.error);
+        setMessage(data.error || 'Noe gikk galt. Vennligst prøv igjen.');
       }
     } catch (err) {
       console.error('Feil under registrering:', err);
