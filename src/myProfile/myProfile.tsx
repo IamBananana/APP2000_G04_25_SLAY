@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button, Modal, Form } from "react-bootstrap";
-import supabase from "../db"; // Import Supabase from the db.ts file
+import axios from "axios"; // Import Axios for HTTP requests
 import "../index.css"; // Any global styles (including Bootstrap)
 import "./myProfile.css"; // Your custom styles
 
@@ -22,30 +22,22 @@ const MyProfile: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [modalMessage, setModalMessage] = useState<string>("");
-  const [modalDeleteMessage, setModalDeleteMessage] = useState<string>(""); // Optional
+  const [modalDeleteMessage, setModalDeleteMessage] = useState<string>("");
 
   useEffect(() => {
-    const testConnection = async () => {
-      const { data, error } = await supabase.from("bruker").select("*").limit(1); // Test basic connection
-
-      if (error) {
-        console.error("Error connecting to Supabase:", error);
-        setConnectionError("Failed to connect to Supabase.");
-      } else {
-        console.log("Supabase connection test successful:", data);
-        setConnectionError(null); // Reset error if connection is successful
-      }
-    };
-
-    testConnection();
-
-    // Fetch user data from localStorage
+    // Fetch user data from the Express backend
     const fetchUserData = async () => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUserData(JSON.parse(storedUser)); // Hent brukerinformasjon fra localStorage
+      try {
+        const response = await axios.get("/api/user/profile", {
+          params: { userId: "1" }, // Replace with actual user ID (e.g., from localStorage)
+        });
+        setUserData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setConnectionError("Failed to fetch user data.");
+        setLoading(false);
       }
-      setLoading(false); // Set loading to false after the data is fetched
     };
 
     fetchUserData();
@@ -64,20 +56,15 @@ const MyProfile: React.FC = () => {
     }
 
     try {
-      const { error } = await supabase
-        .from("bruker")
-        .update({ Passord: newPassword })
-        .eq("BrukerID", userData?.BrukerID);
-
-      if (error) {
-        console.error("Error updating password:", error);
-        setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
-      } else {
-        setModalMessage("Passord oppdatert!");
-        setTimeout(() => setShowModal(false), 2000);
-      }
-    } catch (err) {
-      console.error("Unexpected error:", err);
+      const response = await axios.post("/api/user/update-password", {
+        userId: userData?.BrukerID,
+        currentPassword,
+        newPassword,
+      });
+      setModalMessage(response.data.message);
+      setTimeout(() => setShowModal(false), 2000);
+    } catch (error) {
+      console.error("Error updating password:", error);
       setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
     }
   };
@@ -87,20 +74,13 @@ const MyProfile: React.FC = () => {
     if (!userData) return;
 
     try {
-      const { error } = await supabase
-        .from("bruker")
-        .delete()
-        .eq("BrukerID", userData.BrukerID);
-
-      if (error) {
-        console.error("Error deleting account:", error);
-        setModalDeleteMessage("Noe gikk galt. Vennligst prøv igjen.");
-      } else {
-        localStorage.removeItem("user"); // Clear local storage
-        window.location.href = "/"; // Redirect to homepage after deletion
-      }
-    } catch (err) {
-      console.error("Unexpected error:", err);
+      const response = await axios.delete("/api/user/delete-account", {
+        data: { userId: userData.BrukerID },
+      });
+      localStorage.removeItem("user");
+      window.location.href = "/"; // Redirect to homepage after deletion
+    } catch (error) {
+      console.error("Error deleting account:", error);
       setModalDeleteMessage("Noe gikk galt. Vennligst prøv igjen.");
     }
   };

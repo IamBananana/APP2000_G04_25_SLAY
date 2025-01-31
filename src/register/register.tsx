@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import logo from '../assets/android-chrome-512x512.png';
-import supabase from '../db'; // Importer den ferdigkonfigurerte Supabase-klienten
-import { useNavigate } from 'react-router-dom'; // Importer useNavigate fra react-router-dom
+import axios from 'axios'; // Import Axios for HTTP requests
+import { useNavigate } from 'react-router-dom'; // For navigation after registration
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const navigate = useNavigate(); // For navigasjon etter registrering
+  const navigate = useNavigate(); // For navigation after registration
 
   const handleRegister = async (): Promise<void> => {
     if (!username || !email || !password) {
@@ -17,26 +17,24 @@ const Register: React.FC = () => {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('bruker')
-        .insert([{ "BrukerNavn": username, "Epost": email, "Passord": password }])
-        .select()
-        .single(); // Bruk .single() for å hente den nylig registrerte brukeren
+      const response = await axios.post('/api/register', {
+        username,
+        email,
+        password,
+      });
 
-      if (error) {
-        console.error('Feil under registrering:', error);
-        setMessage('Noe gikk galt. Vennligst prøv igjen.');
-        return;
-      }
+      // Handle the response from the backend
+      const data = response.data;
 
-      // Lagre brukerinformasjon i localStorage
+      // Save the user data to localStorage
       localStorage.setItem('user', JSON.stringify(data));
+
       console.log('Registrering vellykket, data:', data);
 
-      // Naviger til "Min side"
+      // Navigate to "Min side"
       navigate('/minside');
-    } catch (err) {
-      console.error('Uventet feil under registrering:', err);
+    } catch (error) {
+      console.error('Feil under registrering:', error);
       setMessage('Noe gikk galt. Vennligst prøv igjen.');
     }
   };
