@@ -1,7 +1,17 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",  // Use commonjs for Node.js compatibility
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./server",  // Ensure this points to your server directory
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "server/**/*.ts"
   ]
 }
