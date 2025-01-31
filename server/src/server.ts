@@ -1,17 +1,12 @@
-// src/server.ts
 import express from 'express';
-import bodyParser from 'body-parser';
-import apiRouter from './routes/api'; // Import your router
+import apiRouter from './routes/api'; // Importer routeren fra api.ts
 
 const app = express();
-const port = 5000;
+const port = 3000;
 
-app.use(bodyParser.json()); // Middleware to parse JSON request bodies
+app.use(express.json());  // Middleware for å håndtere JSON
+app.use('/api', apiRouter);  // Bruk api-ruten
 
-// Use the API routes
-app.use('/api', apiRouter); // Prefix for all API routes
-
-// Start the server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

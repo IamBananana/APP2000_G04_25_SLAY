@@ -1,23 +1,27 @@
-// src/routes/api.ts
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Router } from 'express';
 
-const router = express.Router();
+const apiRouter: Router = Router();
 
-// Register route handler
-router.post('/register', async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
-
+// Definer en asynkron rutehåndterer for /api
+apiRouter.get('/', async (req: Request, res: Response): Promise<void> => {
   try {
-    // Add your registration logic here, e.g., saving to a database
-    // For example, you might use Supabase or another database service
-
-    // Sending a successful response
-    res.status(200).json({ message: 'Registration successful', data: { username, email } });
-  } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ message: 'Something went wrong during registration' });
+    const data = await someAsyncFunction();
+    res.json({ message: 'Hello world', data });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: 'Something went wrong', details: error.message });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
   }
 });
 
-export default router;
-  
+const someAsyncFunction = async (): Promise<string> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('Async function result');
+    }, 1000);
+  });
+};
+
+export default apiRouter;
