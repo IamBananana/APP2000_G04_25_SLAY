@@ -1,41 +1,52 @@
 import React, { useState } from 'react';
 import logo from '../assets/android-chrome-512x512.png';
-import axios from 'axios'; // Import Axios for HTTP requests
-import { useNavigate } from 'react-router-dom'; // For navigation after registration
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const navigate = useNavigate(); // For navigation after registration
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (): Promise<void> => {
-    if (!username || !email || !password) {
-      setMessage('Alle felt må fylles ut.');
-      return;
-    }
+    setMessage('');
+    
+    // Trim inputs for any leading/trailing spaces (optional)
+    const trimmedUsername = username.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    setLoading(true);
 
     try {
-      const response = await axios.post('/api/register', {
-        username,
-        email,
-        password,
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: trimmedUsername,
+          email: trimmedEmail,
+          password: trimmedPassword,
+        }),
       });
 
-      // Handle the response from the backend
-      const data = response.data;
-
-      // Save the user data to localStorage
-      localStorage.setItem('user', JSON.stringify(data));
-
-      console.log('Registrering vellykket, data:', data);
-
-      // Navigate to "Min side"
-      navigate('/minside');
-    } catch (error) {
-      console.error('Feil under registrering:', error);
-      setMessage('Noe gikk galt. Vennligst prøv igjen.');
+      if (!response.ok) {
+        const errorData = await response.json();
+        setMessage(errorData.message || 'Noe gikk galt. Prøv igjen.');
+      } else {
+        const data = await response.json();
+        localStorage.setItem('userId', data.userId);
+        console.log('Registrering vellykket, data:', data);
+        navigate('/minside');
+      }
+    } catch (err) {
+      console.error('Feil under registrering:', err);
+      setMessage('Uventet feil. Prøv igjen senere.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,9 +70,7 @@ const Register: React.FC = () => {
           type="text"
           placeholder="Brukernavn"
           value={username}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUsername(e.target.value)
-          }
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="inpBrukernavn">Brukernavn</label>
       </div>
@@ -73,9 +82,7 @@ const Register: React.FC = () => {
           type="email"
           placeholder="E-post"
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="inpEmail">E-post</label>
       </div>
@@ -87,9 +94,7 @@ const Register: React.FC = () => {
           type="password"
           placeholder="Passord"
           value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
         <label htmlFor="inpPassord">Passord</label>
       </div>
@@ -97,14 +102,15 @@ const Register: React.FC = () => {
       <button
         className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3"
         onClick={handleRegister}
+        disabled={loading}
       >
-        Registrer
+        {loading ? 'Registrerer...' : 'Registrer'}
       </button>
 
       {message && <div className="alert alert-info mt-3">{message}</div>}
 
       <div className="mb-4">
-        Har du allerede bruker? <a href="/login" className="text-decoration-none">Logg inn</a>
+        Har du allerede en bruker? <a href="/login" className="text-decoration-none">Logg inn</a>
       </div>
     </div>
   );
