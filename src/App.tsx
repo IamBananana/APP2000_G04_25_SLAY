@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppNavbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./home/home";
@@ -8,6 +9,8 @@ import Register from "./register/register";
 import Login from "./login/login";
 import ClubPage from "./clubPage/clubPage";
 import MyProfile from "./myProfile/myProfile";
+import Kontakt from "./kontakt/kontakt";
+import OmOss from "./omOss/omOss";
 import axios from "axios";
 
 const App: React.FC = () => {
