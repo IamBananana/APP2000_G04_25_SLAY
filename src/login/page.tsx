@@ -1,4 +1,5 @@
- import logo from '../assets/android-chrome-512x512.png';
+import React from 'react';
+import logo from '../assets/android-chrome-512x512.png';
 
  
  export default function Page(){
