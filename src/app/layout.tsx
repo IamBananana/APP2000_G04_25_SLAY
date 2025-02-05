@@ -5,43 +5,61 @@ import Footer from "@/src/components/Footer";
 import Head from "next/head";
 
 export const metadata: Metadata = {
-  title: "TeeTime | DiscGolf",
-  description: "A Next.js application for Disc Golf",
+    title: "TeeTime | DiscGolf",
+    description: "A Next.js application for Disc Golf",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <Head>
-        {/* Favicon & Web Manifest */}
-        <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/favicon-16x16.png" />
-        <link rel="manifest" href="/src/assets/site.webmanifest" />
+export default function RootLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <html lang="en">
+            <Head>
+                {/* Favicon & Web Manifest */}
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/src/assets/apple-touch-icon.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="32x32"
+                    href="/src/assets/favicon-32x32.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
+                    href="/src/assets/favicon-16x16.png"
+                />
+                <link rel="manifest" href="/src/assets/site.webmanifest" />
 
-        {/* Bootstrap Icons */}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        />
+                {/* Bootstrap Icons */}
+                <link
+                    rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+                />
 
-        {/* Bootstrap CSS */}
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-      </Head>
-      <body id="b">
-        <AppNavbar />
-        <main>{children}</main>
-        <Footer />
+                {/* Bootstrap CSS */}
+                <link
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                    rel="stylesheet"
+                />
+            </Head>
+            <body id="b">
+                <AppNavbar />
+                <main>{children}</main>
+                <Footer />
 
-        {/* Bootstrap JS */}
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          defer
-        ></script>
-      </body>
-    </html>
-  );
+                {/* Bootstrap JS */}
+                <script
+                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                    defer
+                ></script>
+            </body>
+        </html>
+    );
 }
