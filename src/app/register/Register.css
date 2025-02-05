@@ -1,0 +1,25 @@
+.container.text-center {
+  color: #000 !important;
+}
+
+
+img {
+  margin-bottom: 20px;
+}
+
+.form-floating input {
+  font-size: 1rem;
+}
+
+.form-floating label {
+  font-size: 0.9rem;
+  padding-left: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  font-size: 0.9rem;
+}
