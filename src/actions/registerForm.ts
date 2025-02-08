@@ -1,9 +1,12 @@
+"use server";
 import { NextResponse } from "next/server";
 import supabase from "@/src/utils/supabase";
 
-// API route for user registration
-export async function POST(request: Request) {
-    "use server";
+export async function handleRegisterForm(
+    prevState: unknown,
+    formData: FormData
+) {
+    //TODO implement handleRegisterForm
     try {
         const { username, email, password } = await request.json();
 

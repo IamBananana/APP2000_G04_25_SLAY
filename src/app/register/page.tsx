@@ -1,16 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState, useState } from "react";
 import logo from "@/public/assets/android-chrome-512x512.png";
 import Image from "next/image";
+import { handleRegisterForm } from "@/src/actions/registerForm";
+import "./Register.css";
 import { useRouter } from "next/navigation"; // Use Next.js router
 
 const Register: React.FC = () => {
     //TODO - Convert register API endpoint to use Server Actions
     //This is started for you below
-    // const [formResponse, formAction, isSubmitting] = useActionState(
-    //     handleRegisterForm,
-    //     null,
-    // );
+    const [formResponse, formAction, isSubmitting] = useActionState(
+        handleRegisterForm,
+        null
+    );
 
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -56,7 +58,8 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div
+        <form
+            action={formAction}
             id="wrapper"
             className="container col-md-5 d-flex flex-column justify-content-around align-items-center border border-success
                  bg-light rounded p-5 mt-5"
@@ -119,7 +122,7 @@ const Register: React.FC = () => {
                     Logg inn
                 </a>
             </div>
-        </div>
+        </form>
     );
 };
 
