@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./home.css";
 import AppNavbar from "@/src/components/AppNavbar";
 import Footer from "@/src/components/Footer";
 import Head from "next/head";
