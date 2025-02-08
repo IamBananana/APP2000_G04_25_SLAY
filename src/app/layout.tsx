@@ -3,6 +3,7 @@ import "./globals.css";
 import AppNavbar from "@/src/components/AppNavbar";
 import Footer from "@/src/components/Footer";
 import Head from "next/head";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const metadata: Metadata = {
     title: "TeeTime | DiscGolf",
