@@ -7,9 +7,13 @@ export async function handleRegisterForm(
     formData: FormData
 ) {
     //TODO implement handleRegisterForm
-    try {
-        const { username, email, password } = await request.json();
 
+    const username = formData.get("username");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    try {
+        //If any fields ar empty
         if (!username || !email || !password) {
             return NextResponse.json(
                 { error: "All fields are required." },

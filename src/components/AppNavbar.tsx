@@ -21,7 +21,7 @@ const navLinks = [
     { name: "Kontakt", href: "/kontakt" },
     { name: "Spill", href: "/spill" },
     { name: "Mitt lag", href: "/lag" },
-    { name: "Min side", href: "/minSide" },
+    { name: "Min side", href: "/myProfile" },
     { name: "Login", href: "/login" },
     { name: "Registrer", href: "/register" },
 ];
@@ -31,10 +31,10 @@ export default function AppNavbar() {
 
     // Del lenkene i to grupper: venstre og høyre
     const leftLinks = links.filter(
-        (link) => !["Min side", "Login", "Registrer"].includes(link.name),
+        (link) => !["Min side", "Login", "Registrer"].includes(link.name)
     );
     const rightLinks = links.filter((link) =>
-        ["Min side", "Login", "Registrer"].includes(link.name),
+        ["Min side", "Login", "Registrer"].includes(link.name)
     );
 
     return (

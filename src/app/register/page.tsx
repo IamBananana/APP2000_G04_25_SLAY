@@ -1,14 +1,18 @@
 "use client";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import logo from "@/public/assets/android-chrome-512x512.png";
 import Image from "next/image";
 import { handleRegisterForm } from "@/src/actions/registerForm";
 import "./Register.css";
-import { useRouter } from "next/navigation"; // Use Next.js router
+import { redirect, useRouter } from "next/navigation"; // Use Next.js router
+import { NextResponse } from "next/server";
+import { matchesMiddleware } from "next/dist/shared/lib/router/router";
 
 const Register: React.FC = () => {
     //TODO - Convert register API endpoint to use Server Actions
     //This is started for you below
+    //const initialError = NextResponse.json({ message: "", data: null });
+
     const [formResponse, formAction, isSubmitting] = useActionState(
         handleRegisterForm,
         null
@@ -19,6 +23,24 @@ const Register: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const [message, setMessage] = useState<string>("");
     const router = useRouter(); // Next.js navigation
+
+    useEffect(() => {
+        if (formResponse) {
+            formResponse.json().then((data) => {
+                setMessage(data);
+                if (data.status == 201) {
+                    //Wait one second, so the user can see feedback
+                    setTimeout(() => {
+                        redirect("/myProfile");
+                    }, 1000);
+                }
+            });
+        }
+    }, [formResponse]);
+
+    {
+        /**
+        Tror denne kan egt fjernes
 
     const handleRegister = async (): Promise<void> => {
         if (!username || !email || !password) {
@@ -56,6 +78,8 @@ const Register: React.FC = () => {
             setMessage("Noe gikk galt. Vennligst prøv igjen.");
         }
     };
+     */
+    }
 
     return (
         <form
@@ -74,6 +98,7 @@ const Register: React.FC = () => {
             <div className="form-floating mb-3">
                 <input
                     id="inpBrukernavn"
+                    name="username"
                     className="form-control rounded-pill"
                     type="text"
                     placeholder="Brukernavn"
@@ -86,6 +111,7 @@ const Register: React.FC = () => {
             <div className="form-floating mb-3">
                 <input
                     id="inpEmail"
+                    name="email"
                     className="form-control rounded-pill"
                     type="email"
                     placeholder="E-post"
@@ -98,6 +124,7 @@ const Register: React.FC = () => {
             <div className="form-floating mb-1">
                 <input
                     id="inpPassord"
+                    name="password"
                     className="form-control rounded-pill"
                     type="password"
                     placeholder="Passord"
@@ -107,10 +134,7 @@ const Register: React.FC = () => {
                 <label htmlFor="inpPassord">Passord</label>
             </div>
 
-            <button
-                className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3"
-                onClick={handleRegister}
-            >
+            <button className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3">
                 Registrer
             </button>
 
