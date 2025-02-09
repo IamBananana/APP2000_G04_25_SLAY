@@ -16,8 +16,8 @@ interface Bruker {
 const MyProfile: React.FC = () => {
     const [userData, setUserData] = useState<Bruker | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [notLogged, setNotLogged] = useState<boolean>(true);
     const [connectionError, setConnectionError] = useState<string | null>(null);
-
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [currentPassword, setCurrentPassword] = useState<string>("");
@@ -49,8 +49,12 @@ const MyProfile: React.FC = () => {
                 const user = JSON.parse(storedUser);
                 const fetchedUser = await getUser(user.BrukerID);
                 setUserData(fetchedUser);
+                setLoading(false);
+                setNotLogged(false);
+            } else {
+                setLoading(false);
+                console.log("User not logged inn");
             }
-            setLoading(false);
         };
 
         fetchUserData();
@@ -109,6 +113,8 @@ const MyProfile: React.FC = () => {
                 <p>{connectionError}</p>
             ) : loading ? (
                 <p>Loading profile...</p>
+            ) : notLogged ? (
+                <p>You are not logged inn</p>
             ) : (
                 <>
                     <Row className="d-flex align-items-stretch">
