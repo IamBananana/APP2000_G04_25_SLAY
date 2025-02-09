@@ -39,13 +39,12 @@ body {
 body {
     margin: 0;
     display: flex;
-    place-items: center;
-    padding-top: 56px;
+    flex-direction: column; /* Ensure the body takes full height and stretches */
+
     min-width: 100vw;
     min-height: 100vh;
     background-color: rgb(8, 49, 8);
     overflow-y: scroll;
-    flex-direction: column;
 }
 
 .main-container {
