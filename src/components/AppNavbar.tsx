@@ -20,7 +20,7 @@ const navLinks = [
     { name: "Om oss", href: "/omOss" },
     { name: "Kontakt", href: "/kontakt" },
     { name: "Spill", href: "/spill" },
-    { name: "Mitt lag", href: "/lag" },
+    { name: "Mitt lag", href: "/clubPage" },
     { name: "Min side", href: "/myProfile" },
     { name: "Login", href: "/login" },
     { name: "Registrer", href: "/register" },

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import "./ClubPage.css";
 import Image from "next/image";
-import disc from "@/public/assets/BøDisc.png";
 
 const ClubPage: React.FC = () => {
     const [weatherData, setWeatherData] = useState<{
@@ -20,7 +19,7 @@ const ClubPage: React.FC = () => {
         const fetchWeather = async () => {
             try {
                 const response = await fetch(
-                    "https://api.openweathermap.org/data/2.5/weather?lat=59.4092&lon=9.0584&appid=7893fe54603a7772584fad62c71e97a1&units=metric&lang=no",
+                    "https://api.openweathermap.org/data/2.5/weather?lat=59.4092&lon=9.0584&appid=7893fe54603a7772584fad62c71e97a1&units=metric&lang=no"
                 );
                 if (!response.ok) {
                     throw new Error("Failed to fetch weather data");
@@ -79,9 +78,11 @@ const ClubPage: React.FC = () => {
                                         </button>
                                     </Card.Text>
                                     <Image
-                                        src={disc}
+                                        src="/assets/BøDisc.png"
                                         alt="Club Logo"
                                         className="club-logo"
+                                        width={100} // Legg til width og height for optimalisering
+                                        height={100}
                                     />
                                 </div>
                             </Card.Body>
@@ -195,9 +196,11 @@ const ClubPage: React.FC = () => {
                                         className="social-link"
                                     >
                                         <Image
-                                            src="./src/assets/tiktok.png"
+                                            src="/assets/tiktok.png"
                                             alt="TikTok"
                                             className="social-icon"
+                                            width={30} // Legg til width og height for optimalisering
+                                            height={30}
                                         />
                                     </a>
                                     <a
@@ -207,9 +210,11 @@ const ClubPage: React.FC = () => {
                                         className="social-link"
                                     >
                                         <Image
-                                            src="./src/assets/instagram.png"
+                                            src="/assets/instagram.png"
                                             alt="Instagram"
                                             className="social-icon"
+                                            width={30} // Legg til width og height for optimalisering
+                                            height={30}
                                         />
                                     </a>
                                 </div>
