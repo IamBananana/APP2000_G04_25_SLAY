@@ -1,25 +1,58 @@
 .container.text-center {
-  color: #000 !important;
+    color: #000 !important;
 }
 
-
 img {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+    height: auto;
+    width: auto;
 }
 
 .form-floating input {
-  font-size: 1rem;
+    font-size: 1rem;
+    border-radius: 50px; /* Ensure rounded-pill effect */
+    padding: 10px; /* Adjust padding to match original design */
 }
 
 .form-floating label {
-  font-size: 0.9rem;
-  padding-left: 10px;
+    font-size: 0.9rem;
+    padding-left: 10px;
+    color: #495057; /* Ensure label color matches */
+}
+
+button {
+    font-size: 1rem;
+    padding: 50px 100px; /* Adjust padding to match original design */
+    border-radius: 50px; /* Ensure rounded-pill effect */
+    background-color: #28a745; /* Match the success button color */
+    border: none;
+    color: white;
 }
 
 button:hover {
-  background-color: #0056b3;
+    background-color: #218838; /* Darker green on hover */
 }
 
 a {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
+    color: #007bff; /* Ensure link color matches */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.alert {
+    margin-top: 20px; /* Ensure consistent spacing */
+}
+
+#wrapper {
+    background-color: #f8f9fa; /* Light background for the form */
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Consistent padding */
+    width: 300%; /* Ensure full width */
+    max-width: 500px; /* Limit maximum width */
+    margin: auto; /* Center the form */
 }
