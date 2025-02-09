@@ -26,60 +26,15 @@ const Register: React.FC = () => {
 
     useEffect(() => {
         if (formResponse) {
-            formResponse.json().then((data) => {
-                setMessage(data);
-                if (data.status == 201) {
-                    //Wait one second, so the user can see feedback
-                    setTimeout(() => {
-                        redirect("/myProfile");
-                    }, 1000);
-                }
-            });
+            setMessage(JSON.stringify(formResponse));
+            if (formResponse.status == 201) {
+                //Wait one second, so the user can see feedback
+                setTimeout(() => {
+                    redirect("/myProfile");
+                }, 1000);
+            }
         }
     }, [formResponse]);
-
-    {
-        /**
-        Tror denne kan egt fjernes
-
-    const handleRegister = async (): Promise<void> => {
-        if (!username || !email || !password) {
-            setMessage("Alle felt må fylles ut."); // All fields must be filled
-            return;
-        }
-
-        try {
-            const response = await fetch("/api/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username, email, password }),
-            });
-
-            const data = await response.json();
-
-            // if (response.ok) {
-            //     // Successful registration
-            //     localStorage.setItem("user", JSON.stringify(data.data));
-            console.log(data);
-
-            //     // Navigate to "Min side" using Next.js router
-            //     router.push("/myProfile");
-            // } else {
-            //     // Registration failed
-            //     console.error("Feil under registrering:", data.error);
-            //     setMessage(
-            //         data.error || "Noe gikk galt. Vennligst prøv igjen.",
-            //     );
-            // }
-        } catch (err) {
-            console.error("Uventet feil under registrering:", err);
-            setMessage("Noe gikk galt. Vennligst prøv igjen.");
-        }
-    };
-     */
-    }
 
     return (
         <form
