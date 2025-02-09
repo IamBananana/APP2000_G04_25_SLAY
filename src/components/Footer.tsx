@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="text-center text-lg-start text-white bg-dark mt-auto">
+        <footer className="text-center text-lg-start text-white bg-dark mt-auto footer-spacing">
             <div className="container-fluid p-4 pb-0">
                 <section>
                     <div className="row">
