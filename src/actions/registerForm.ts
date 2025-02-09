@@ -1,23 +1,21 @@
+// registerForm.ts
 "use server";
-//import { NextResponse } from "next/server";
 import supabase from "@/src/utils/supabase";
 import dotenv from "dotenv";
 
-dotenv.config;
+dotenv.config();
 
 export async function handleRegisterForm(
     prevState: unknown,
     formData: FormData
 ) {
-    //TODO implement handleRegisterForm
-    console.log("SUPABASE_URL:", process.env.SUPABASE_URL);
+    console.log("SUPABASE_URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
 
     const username = formData.get("username");
     const email = formData.get("email");
     const password = formData.get("password");
 
     try {
-        //If any fields ar empty
         if (!username || !email || !password) {
             return { error: "All fields are required.", status: 400 };
         }

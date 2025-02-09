@@ -1,46 +1,52 @@
 "use client";
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "@/public/assets/android-chrome-512x512.png";
 import Image from "next/image";
-import { handleRegisterForm } from "@/src/actions/registerForm";
+import { useRouter } from "next/navigation";
+import { handleRegisterForm } from "@/src/actions/registerForm"; // This will be the server-side function
 import "./Register.css";
-import { redirect, useRouter } from "next/navigation"; // Use Next.js router
-import { NextResponse } from "next/server";
-import { matchesMiddleware } from "next/dist/shared/lib/router/router";
 
 const Register: React.FC = () => {
-    //TODO - Convert register API endpoint to use Server Actions
-    //This is started for you below
-    //const initialError = NextResponse.json({ message: "", data: null });
-
-    const [formResponse, formAction, isSubmitting] = useActionState(
-        handleRegisterForm,
-        null
-    );
-
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [message, setMessage] = useState<string>("");
-    const router = useRouter(); // Next.js navigation
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const router = useRouter();
 
-    console.log("Key: " + process.env.SUPABASE_URL);
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
 
-    useEffect(() => {
-        if (formResponse) {
-            setMessage(JSON.stringify(formResponse.message));
-            if (formResponse.status == 201) {
-                //Wait one second, so the user can see feedback
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("email", email);
+        formData.append("password", password);
+
+        try {
+            const response = await handleRegisterForm({}, formData); // Call server-side handler
+            if (response?.status === 201) {
+                setMessage("User registered successfully");
+                localStorage.setItem("user", JSON.stringify(response.data));
+                setTimeout(() => {
+                    router.push("/myProfile"); // Redirect to myProfile page
+                }, 1000);
+            } else {
+                setMessage(response?.error || "An error occurred.");
             }
+        } catch (error) {
+            setMessage("An error occurred. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
-    }, [formResponse]);
+    };
 
     return (
         <form
-            action={formAction}
             id="wrapper"
-            className="container col-md-5 d-flex flex-column justify-content-around align-items-center border border-success
-                 bg-light rounded p-5 mt-5"
+            className="container col-md-5 d-flex flex-column justify-content-around align-items-center border border-success bg-light rounded p-5 mt-5"
+            onSubmit={handleSubmit}
         >
             <Image src={logo} className="img w-25" alt="logo" />
 
@@ -88,8 +94,11 @@ const Register: React.FC = () => {
                 <label htmlFor="inpPassord">Passord</label>
             </div>
 
-            <button className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3">
-                Registrer
+            <button
+                className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3"
+                disabled={isSubmitting}
+            >
+                {isSubmitting ? "Registrering..." : "Registrer"}
             </button>
 
             {message && <div className="alert alert-info mt-3">{message}</div>}
@@ -99,7 +108,6 @@ const Register: React.FC = () => {
                 <a href="/login" className="text-decoration-none">
                     Logg inn
                 </a>
-                <p>{process.env.SUPABASE_URL}</p>
             </div>
         </form>
     );

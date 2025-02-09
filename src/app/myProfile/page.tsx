@@ -1,7 +1,9 @@
+// myProfile.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button, Modal, Form } from "react-bootstrap";
-import "./myProfile.css"; // Your custom styles
+import "./myProfile.css";
+import { getUser, deleteUser, changePassword } from "@/src/actions/userActions";
 import supabase from "@/src/utils/supabase";
 
 interface Bruker {
@@ -14,47 +16,46 @@ interface Bruker {
 const MyProfile: React.FC = () => {
     const [userData, setUserData] = useState<Bruker | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [connectionError, setConnectionError] = useState<string | null>(null); // To hold connection errors
+    const [connectionError, setConnectionError] = useState<string | null>(null);
 
-    // State for pop-up modals
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [currentPassword, setCurrentPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
     const [modalMessage, setModalMessage] = useState<string>("");
-    const [modalDeleteMessage, setModalDeleteMessage] = useState<string>(""); // Optional
+    const [modalDeleteMessage, setModalDeleteMessage] = useState<string>("");
 
     useEffect(() => {
         const testConnection = async () => {
             const { data, error } = await supabase
                 .from("bruker")
                 .select("*")
-                .limit(1); // Test basic connection
+                .limit(1);
 
             if (error) {
                 console.error("Error connecting to Supabase:", error);
                 setConnectionError("Failed to connect to Supabase.");
             } else {
                 console.log("Supabase connection test successful:", data);
-                setConnectionError(null); // Reset error if connection is successful
+                setConnectionError(null);
             }
         };
 
         testConnection();
 
-        // Fetch user data from localStorage
         const fetchUserData = async () => {
             const storedUser = localStorage.getItem("user");
             if (storedUser) {
-                setUserData(JSON.parse(storedUser)); // Hent brukerinformasjon fra localStorage
+                const user = JSON.parse(storedUser);
+                const fetchedUser = await getUser(user.BrukerID);
+                setUserData(fetchedUser);
             }
-            setLoading(false); // Set loading to false after the data is fetched
+            setLoading(false);
         };
 
         fetchUserData();
     }, []);
 
-    // Handle password update
     const handlePasswordUpdate = async () => {
         if (!currentPassword || !newPassword) {
             setModalMessage("Alle felt må fylles ut.");
@@ -67,17 +68,15 @@ const MyProfile: React.FC = () => {
         }
 
         try {
-            const { error } = await supabase
-                .from("bruker")
-                .update({ Passord: newPassword })
-                .eq("BrukerID", userData?.BrukerID);
-
-            if (error) {
-                console.error("Error updating password:", error);
-                setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
-            } else {
+            const success = await changePassword(
+                userData.BrukerID,
+                newPassword
+            );
+            if (success) {
                 setModalMessage("Passord oppdatert!");
                 setTimeout(() => setShowModal(false), 2000);
+            } else {
+                setModalMessage("Noe gikk galt. Vennligst prøv igjen.");
             }
         } catch (err) {
             console.error("Unexpected error:", err);
@@ -85,22 +84,16 @@ const MyProfile: React.FC = () => {
         }
     };
 
-    // Handle account deletion
     const handleAccountDelete = async () => {
         if (!userData) return;
 
         try {
-            const { error } = await supabase
-                .from("bruker")
-                .delete()
-                .eq("BrukerID", userData.BrukerID);
-
-            if (error) {
-                console.error("Error deleting account:", error);
-                setModalDeleteMessage("Noe gikk galt. Vennligst prøv igjen.");
+            const success = await deleteUser(userData.BrukerID);
+            if (success) {
+                localStorage.removeItem("user");
+                window.location.href = "/";
             } else {
-                localStorage.removeItem("user"); // Clear local storage
-                window.location.href = "/"; // Redirect to homepage after deletion
+                setModalDeleteMessage("Noe gikk galt. Vennligst prøv igjen.");
             }
         } catch (err) {
             console.error("Unexpected error:", err);
@@ -112,15 +105,13 @@ const MyProfile: React.FC = () => {
         <div className="myProfile-page">
             <h1 className="text-center mb-4">Min side</h1>
 
-            {/* Display connection status */}
             {connectionError ? (
-                <p>{connectionError}</p> // Show connection error message
+                <p>{connectionError}</p>
             ) : loading ? (
-                <p>Loading profile...</p> // Display loading message until data is fetched
+                <p>Loading profile...</p>
             ) : (
                 <>
                     <Row className="d-flex align-items-stretch">
-                        {/* Account Information Card */}
                         <Col md={6} className="d-flex">
                             <Card className="mb-4 flex-fill">
                                 <Card.Body>
@@ -140,7 +131,7 @@ const MyProfile: React.FC = () => {
                                                 className="passwordLink"
                                                 onClick={() =>
                                                     setShowModal(true)
-                                                } // Open modal
+                                                }
                                             >
                                                 Endre passord
                                             </Button>
@@ -153,7 +144,6 @@ const MyProfile: React.FC = () => {
                                             >
                                                 Administrer medlemskap
                                             </a>
-                                            {/* Slett konto placed directly below Administrer medlemskap */}
                                             <span
                                                 className="deleteAccountLink mt-2 d-block"
                                                 onClick={() =>
@@ -168,7 +158,6 @@ const MyProfile: React.FC = () => {
                             </Card>
                         </Col>
 
-                        {/* Statistics Card */}
                         <Col md={6} className="d-flex">
                             <Card className="mb-4 flex-fill">
                                 <Card.Body>
@@ -193,7 +182,6 @@ const MyProfile: React.FC = () => {
                     </Row>
 
                     <Row className="d-flex align-items-stretch">
-                        {/* Activities Card */}
                         <Col md={6} className="d-flex">
                             <Card className="mb-4 flex-fill">
                                 <Card.Body>
@@ -203,38 +191,13 @@ const MyProfile: React.FC = () => {
                                             <strong>Banevurdering: </strong>{" "}
                                             Grivihaugen #2322, Gullbringskogen
                                             #2324 <br />
-                                            <strong>Deltakelser: </strong>{" "}
-                                            Notodden-turnering 15.Januar,
-                                            Klubbmøte 20.Januar <br />
+                                            <strong>Deltakelser: </strong> 5
+                                            turneringer, 3 kurs <br />
                                             <Button
                                                 variant="link"
                                                 className="buttonMore"
                                             >
-                                                Les mer.
-                                            </Button>
-                                        </Card.Text>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-
-                        {/* Social Card */}
-                        <Col md={6} className="d-flex">
-                            <Card className="mb-4 flex-fill">
-                                <Card.Body>
-                                    <Card.Title>Sosialt</Card.Title>
-                                    <div className="profile-info">
-                                        <Card.Text className="profile-details">
-                                            <strong>Venner: </strong> JavaRoy,
-                                            spirti1, plym, kianospotato,
-                                            sigridng <br />
-                                            <strong>Legg til venn: </strong>
-                                            <input
-                                                placeholder="Søk..."
-                                                className="placeholderFriend"
-                                            />
-                                            <Button className="addFriend">
-                                                Send forespørsel
+                                                Les mer
                                             </Button>
                                         </Card.Text>
                                     </div>
@@ -245,14 +208,19 @@ const MyProfile: React.FC = () => {
                 </>
             )}
 
-            {/* Modal for changing password */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            {/* Modals */}
+            <Modal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                backdrop="static"
+                keyboard={false}
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>Endre passord</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="currentPassword">
+                        <Form.Group controlId="formCurrentPassword">
                             <Form.Label>Gammelt passord</Form.Label>
                             <Form.Control
                                 type="password"
@@ -260,22 +228,20 @@ const MyProfile: React.FC = () => {
                                 onChange={(e) =>
                                     setCurrentPassword(e.target.value)
                                 }
-                                placeholder="Skriv inn gammelt passord"
                             />
                         </Form.Group>
-                        <Form.Group controlId="newPassword" className="mt-3">
+                        <Form.Group controlId="formNewPassword">
                             <Form.Label>Nytt passord</Form.Label>
                             <Form.Control
                                 type="password"
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                placeholder="Skriv inn nytt passord"
                             />
                         </Form.Group>
-                        {modalMessage && (
-                            <p className="text-info mt-3">{modalMessage}</p>
-                        )}
                     </Form>
+                    {modalMessage && (
+                        <p className="text-center">{modalMessage}</p>
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
@@ -290,22 +256,20 @@ const MyProfile: React.FC = () => {
                 </Modal.Footer>
             </Modal>
 
-            {/* Modal for deleting account */}
+            {/* Delete Account Modal */}
             <Modal
                 show={showDeleteModal}
                 onHide={() => setShowDeleteModal(false)}
+                backdrop="static"
+                keyboard={false}
             >
                 <Modal.Header closeButton>
                     <Modal.Title>Slett konto</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>
-                        Er du sikker på at du vil slette{" "}
-                        <strong>{userData?.BrukerNavn}</strong>? All data vil gå
-                        tapt.
-                    </p>
+                    <p>Er du sikker på at du vil slette kontoen din?</p>
                     {modalDeleteMessage && (
-                        <p className="text-danger">{modalDeleteMessage}</p>
+                        <p className="text-center">{modalDeleteMessage}</p>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
