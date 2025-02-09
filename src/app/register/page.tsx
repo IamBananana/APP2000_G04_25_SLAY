@@ -24,14 +24,13 @@ const Register: React.FC = () => {
     const [message, setMessage] = useState<string>("");
     const router = useRouter(); // Next.js navigation
 
+    console.log("Key: " + process.env.SUPABASE_URL);
+
     useEffect(() => {
         if (formResponse) {
-            setMessage(JSON.stringify(formResponse));
+            setMessage(JSON.stringify(formResponse.message));
             if (formResponse.status == 201) {
                 //Wait one second, so the user can see feedback
-                setTimeout(() => {
-                    redirect("/myProfile");
-                }, 1000);
             }
         }
     }, [formResponse]);
@@ -100,6 +99,7 @@ const Register: React.FC = () => {
                 <a href="/login" className="text-decoration-none">
                     Logg inn
                 </a>
+                <p>{process.env.SUPABASE_URL}</p>
             </div>
         </form>
     );
