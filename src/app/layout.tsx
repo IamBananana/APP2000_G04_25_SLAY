@@ -19,7 +19,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Head>
-                {/* Favicon & Web Manifest */}
+                {/*  */}
                 <link
                     rel="apple-touch-icon"
                     sizes="180x180"
@@ -39,13 +39,13 @@ export default function RootLayout({
                 />
                 <link rel="manifest" href="/src/assets/site.webmanifest" />
 
-                {/* Bootstrap Icons */}
+                {/* Bootstrap-icons */}
                 <link
                     rel="stylesheet"
                     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
                 />
 
-                {/* Bootstrap CSS */}
+                {/* Bootstrap */}
                 <link
                     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
                     rel="stylesheet"
@@ -56,7 +56,7 @@ export default function RootLayout({
                 <main>{children}</main>
                 <Footer />
 
-                {/* Bootstrap JS */}
+                {/* Bootstrap-js */}
                 <script
                     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                     defer

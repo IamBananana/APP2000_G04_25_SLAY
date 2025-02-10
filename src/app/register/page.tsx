@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import logo from "@/public/assets/android-chrome-512x512.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { handleRegisterForm } from "@/src/actions/registerForm"; // This will be the server-side function
+import { handleRegisterForm } from "@/src/actions/registerForm"; // server-side function
 import "./Register.css";
 
 const Register: React.FC = () => {
@@ -25,12 +25,12 @@ const Register: React.FC = () => {
         formData.append("password", password);
 
         try {
-            const response = await handleRegisterForm({}, formData); // Call server-side handler
+            const response = await handleRegisterForm({}, formData); // server-side handler
             if (response?.status === 201) {
                 setMessage("User registered successfully");
                 localStorage.setItem("user", JSON.stringify(response.data));
                 setTimeout(() => {
-                    router.push("/myProfile"); // Redirect to myProfile page
+                    router.push("/myProfile"); 
                 }, 1000);
             } else {
                 setMessage(response?.error || "An error occurred.");

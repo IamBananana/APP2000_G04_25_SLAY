@@ -3,7 +3,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden; 
 }
 
 body {
@@ -15,13 +15,13 @@ body {
 
 /* Club Page */
 .club-page {
-  min-height: 100vh; /* Ensure it stretches to full viewport height */
+  min-height: 100vh; 
   padding: 20px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   margin-top: 70px;
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds viewport */
+  overflow-y: auto; 
 }
 
 /* Panels */
@@ -39,7 +39,7 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   box-sizing: border-box;
-  overflow: auto; /* Ensure scrolling works inside panels */
+  overflow: auto; 
 }
 
 /* Headings */
@@ -100,7 +100,7 @@ body {
   transform: scale(0.98);
 }
 
-/* Club Info */
+
 .club-info {
   display: flex;
   align-items: center;
@@ -115,7 +115,7 @@ body {
   object-fit: cover;
 }
 
-/* Courses Section */
+
 .courses {
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@ body {
   line-height: 1.5;
 }
 
-/* Social Media */
+
 .social-media {
   display: flex;
   gap: 20px;
@@ -162,7 +162,7 @@ body {
   object-fit: contain;
 }
 
-/* Mail Section */
+
 .mail {
   display: flex;
   align-items: center;

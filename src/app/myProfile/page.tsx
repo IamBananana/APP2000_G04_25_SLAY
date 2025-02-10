@@ -210,9 +210,29 @@ const MyProfile: React.FC = () => {
                                 </Card.Body>
                             </Card>
                         </Col>
-                    </Row>
-                </>
-            )}
+                    
+                    <Col md={6} className="d-flex">
+              <Card className="mb-4 flex-fill">
+                <Card.Body>
+                  <Card.Title>Sosialt</Card.Title>
+                  <div className="profile-info">
+                    <Card.Text className="profile-details">
+                      <strong>Venner: </strong> JavaRoy, spirti1, plym, kianospotato, sigridng <br />
+                      <strong>Legg til venn: </strong>
+                      <input placeholder="Søk..." className="placeholderFriend" />
+                      <Button className="addFriend">
+                        Send forespørsel
+                      </Button>
+                    </Card.Text>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      )}
+
+            
 
             {/* Modals */}
             <Modal
@@ -262,7 +282,7 @@ const MyProfile: React.FC = () => {
                 </Modal.Footer>
             </Modal>
 
-            {/* Delete Account Modal */}
+            {/* Delete Account */}
             <Modal
                 show={showDeleteModal}
                 onHide={() => setShowDeleteModal(false)}

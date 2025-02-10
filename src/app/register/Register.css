@@ -10,49 +10,49 @@ img {
 
 .form-floating input {
     font-size: 1rem;
-    border-radius: 50px; /* Ensure rounded-pill effect */
-    padding: 10px; /* Adjust padding to match original design */
+    border-radius: 50px; 
+    padding: 10px; 
 }
 
 .form-floating label {
     font-size: 0.9rem;
     padding-left: 10px;
-    color: #495057; /* Ensure label color matches */
+    color: #495057; 
 }
 
 button {
     font-size: 1rem;
-    padding: 50px 100px; /* Adjust padding to match original design */
-    border-radius: 50px; /* Ensure rounded-pill effect */
-    background-color: #28a745; /* Match the success button color */
+    padding: 50px 100px; 
+    border-radius: 50px; 
+    background-color: #28a745; 
     border: none;
     color: white;
 }
 
 button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838; 
 }
 
 a {
     font-size: 0.9rem;
-    color: #007bff; /* Ensure link color matches */
-    text-decoration: none; /* Remove underline */
+    color: #007bff; 
+    text-decoration: none; 
 }
 
 a:hover {
-    text-decoration: underline; /* Add underline on hover */
+    text-decoration: underline; 
 }
 
 .alert {
-    margin-top: 20px; /* Ensure consistent spacing */
+    margin-top: 20px; 
 }
 
 #wrapper {
-    background-color: #f8f9fa; /* Light background for the form */
-    border: 1px solid #28a745; /* Green border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Consistent padding */
-    width: 300%; /* Ensure full width */
-    max-width: 500px; /* Limit maximum width */
-    margin: auto; /* Center the form */
+    background-color: #f8f9fa; 
+    border: 1px solid #28a745; 
+    border-radius: 10px; 
+    padding: 20px; 
+    width: 300%; 
+    max-width: 500px; 
+    margin: auto; 
 }
