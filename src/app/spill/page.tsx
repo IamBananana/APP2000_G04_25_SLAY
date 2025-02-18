@@ -1,6 +1,7 @@
 "use client";
 import { ReactElement, useEffect, useState } from "react";
 import Icon from "../../components/Icon";
+import L from "leaflet";
 
 export default function Spill() {
     const maxSpillere: number = 6;
@@ -18,7 +19,7 @@ export default function Spill() {
 
     const handleDeletePlayer = (deletePlayer: string) => {
         setPlayersMenu((prevPlayers) =>
-            prevPlayers.filter((player) => player.key !== deletePlayer),
+            prevPlayers.filter((player) => player.key !== deletePlayer)
         );
     };
 
@@ -31,7 +32,7 @@ export default function Spill() {
                     iconName="plus-circle"
                     className="ms-auto mt-2 me-2"
                     onClick={addPlayer}
-                />,
+                />
             );
 
             for (let i = 0; i < inpPlayerCount; i++) {
@@ -59,7 +60,7 @@ export default function Spill() {
                             onClick={() => handleDeletePlayer(`player-${i}`)}
                             className="ms-1"
                         />
-                    </div>,
+                    </div>
                 );
             }
 
@@ -127,7 +128,7 @@ export default function Spill() {
                 onChange={(e) => {
                     const value = Math.min(
                         parseInt(e.target.value) || 0,
-                        maxSpillere,
+                        maxSpillere
                     );
                     setInpPlayerCount(value);
                 }}
@@ -150,10 +151,18 @@ export default function Spill() {
     );
 
     useEffect(() => {
-        console.log("Updated player count:", inpPlayerCount);
-        console.log(isInpMenuVisible);
-        //addPlayer();
-    }, [inpPlayerCount, isInpMenuVisible]);
+        // Initialize Leaflet Map when the component mounts
+        const map = L.map("map").setView([51.505, -0.09], 13); // Initial map center and zoom
+
+        // Add tile layer (you can choose a different map provider if needed) (må se på dette...)
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        // Lgger til marker
+        L.marker([51.505, -0.09]).addTo(map).bindPopup("Hei :)))").openPopup();
+    }, []); //Tom second argument gjør at den bare aktiveres når den mounter når siden først lastes opp.
 
     return (
         <form id="schema">
@@ -169,10 +178,11 @@ export default function Spill() {
                     <div
                         id="map"
                         className="container border border-secondary p-5 me-1 
-                                                col-xl-9 col-lg-8 col-md-7 col-sm-6 
-                                                d-sm-block d-none"
+                                    col-xl-9 col-lg-8 col-md-7 col-sm-6 
+                                    d-sm-block d-none"
+                        style={{ height: "100%" }}
                     >
-                        Kart placeholder
+                        {/* Legg til kart her */}
                     </div>
 
                     <div
