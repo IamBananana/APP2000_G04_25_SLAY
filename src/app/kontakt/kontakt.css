@@ -1,0 +1,111 @@
+.contact-page {
+    padding: calc(2vw + 2vh);
+    font-family: sans-serif;
+}
+
+.contact-header-style {
+    text-align: center;
+    margin-top: 1vw;
+    margin-bottom: 4vw;
+    font-size: 3.1vw;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.contact-bubble-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3vw; /*Avstand mellom tavle elementer*/
+}
+
+.contact-bubble-element {
+    flex: 1;
+    flex-direction: row;
+    padding: calc(1vw + 1vh);
+    border-radius: 1.2vw;
+    background-color: #f9f9f9;
+}
+
+.contact-bubble-font-style h2 {
+    color: #14532d;
+    font-weight: bold;
+}
+
+.contact-icon-style {
+    width: 4.5vw;
+    height: auto;
+    float: right;
+}
+
+.element-info {
+    margin-top: 1.3vw;
+}
+
+/*KONTAKT SKJEMA NEDENFOR*/
+.contact-form-container {
+    background-color: rgb(255, 255, 255);
+    border-radius: 1.2vw;
+    padding: 1.5vw;
+    margin-top: 5vw; /*Mellomrom over*/
+    margin-bottom: 5vw; /*Mellom under*/
+    max-width: 69vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.contact-form-header h2 {
+    text-align: center;
+    margin-top: 1vw;
+    margin-bottom: 2vw;
+    color: #14532d;
+    font-weight: bold;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.contact-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-submit-button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: white;
+    background-color: #14532d;
+    border: none;
+    border-radius: 1.2vw;
+    cursor: pointer;
+    max-width: 13vw;
+    width: 100%;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.contact-submit-button:hover {
+    transform: translateY(-0.4vw);
+    background-color: #5a805d;
+}
+
+.form-button-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 1vw;
+}
+
+.contact-form-group input,
+.contact-form-group textarea {
+    padding: 1vw;
+    font-size: 1rem;
+    border: solid #cecece;
+    border-radius: 1.2vw;
+    background-color: white;
+    color: black;
+}
