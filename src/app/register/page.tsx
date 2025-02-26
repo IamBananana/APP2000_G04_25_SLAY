@@ -30,7 +30,7 @@ const Register: React.FC = () => {
                 setMessage("User registered successfully");
                 localStorage.setItem("user", JSON.stringify(response.data));
                 setTimeout(() => {
-                    router.push("/myProfile"); 
+                    router.push("/myProfile");
                 }, 1000);
             } else {
                 setMessage(response?.error || "An error occurred.");
@@ -95,7 +95,7 @@ const Register: React.FC = () => {
             </div>
 
             <button
-                className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-3"
+                className="btn btn-success btn-lg rounded-pill mt-3 mb-2 col-lg-4"
                 disabled={isSubmitting}
             >
                 {isSubmitting ? "Registrering..." : "Registrer"}
